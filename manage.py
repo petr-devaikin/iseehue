@@ -1,6 +1,7 @@
 from flask.ext.script import Manager
 from web.app import app
 from web.logger import get_logger
+from web.db import scripts
 
 manager = Manager(app)
 
@@ -23,7 +24,7 @@ def initdb():
     """
     Drop and create database
     """
-    #init_database()
+    scripts.init_database()
 
 
 if __name__ == "__main__":

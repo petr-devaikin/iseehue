@@ -1,8 +1,8 @@
 define(['color_border', 'settings'], function(ColorBorder, settings) {
-    return function() {
+    return function(hues) {
         this.colors = [];
-        for (var i = 0; i < settings.colorCount; i++)
-            this.colors.push(new ColorBorder(1 / settings.colorCount * i));
+        for (var i = 0; i < hues.length; i++)
+            this.colors.push(new ColorBorder(hues[i]));
         this.cursor = 0;
 
         this.getNextColor = function () {

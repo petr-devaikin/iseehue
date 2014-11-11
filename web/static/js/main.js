@@ -1,29 +1,27 @@
-define(['color', 'settings', 'palette'], function(color, settings, Palette) {
-    var baseHue,
-        nextHue;
-
-    var currentHue,
-        leftBorder,
-        rightBorder;
-
-    var baseColorElement = document.getElementById("baseColor"),
-        nextColorElement = document.getElementById("nextColor"),
-        hueSampleElement = document.getElementById("hueSample");
-
-    var palette = new Palette();
+define(['color', 'settings', 'palette', 'dom', 'http'], function(color, settings, Palette, dom, http) {
+    var palette = new Palette(hues);
     var colorBorder;
+    http.sendResults(palette);
+    http.loadResults(function(response) {
+        console.log(response.hues);
+        for (var i = 0; i < response.hues.length; i++) {
+            var hue = response.hues[i].hue,
+                answers = response.hues[i].answers;
+            //dom.resultsElement.appendData("color: " + hue.name + ", count: " + answers.length + "<br/>");
+            console.log("color: " + hue.name + ", count: " + answers.length + "<br/>");
+        }
+    });
+
     function showColorBorder() {
         colorBorder = palette.getNextColor();
         if (colorBorder === undefined) {
-            console.log('-----');
-            for (var i = 0; i < settings.colorCount; i++)
-                console.log(palette.colors[i].getPercentage());
+            http.sendResults(palette);
             return;
         }
 
-        baseColorElement.style.backgroundColor = colorBorder.getMinColor();
-        nextColorElement.style.backgroundColor = colorBorder.getMaxColor();
-        hueSampleElement.style.backgroundColor = color.HSVtoStyle(colorBorder.currentHue, settings.saturation, settings.value);
+        dom.baseColorElement.style.backgroundColor = colorBorder.getMinColor();
+        dom.nextColorElement.style.backgroundColor = colorBorder.getMaxColor();
+        dom.hueSampleElement.style.backgroundColor = color.HSVtoStyle(colorBorder.currentHue, settings.saturation, settings.value);
     }
 
 
@@ -52,8 +50,8 @@ define(['color', 'settings', 'palette'], function(color, settings, Palette) {
 
     document.addEventListener("keydown", onKeyDown);
 
-    baseColorElement.onclick = onBaseSelected;
-    nextColorElement.onclick = onNextSelected;
+    dom.baseColorElement.onclick = onBaseSelected;
+    dom.nextColorElement.onclick = onNextSelected;
     
     showColorBorder();
 });

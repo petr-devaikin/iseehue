@@ -27,13 +27,12 @@ def create_tables():
 
 
 def init_data():
-    Hue.create(name='red', value=0./7)
-    Hue.create(name='orange', value=1./7)
-    Hue.create(name='yellow', value=2./7)
-    Hue.create(name='green', value=3./7)
-    Hue.create(name='blue', value=4./7)
-    Hue.create(name='dark blue', value=5./7)
-    Hue.create(name='purple', value=6./7)
+    Hue.create(name='red', value=0./6)
+    Hue.create(name='yellow', value=1./6)
+    Hue.create(name='green', value=2./6)
+    Hue.create(name='blue', value=3./6)
+    Hue.create(name='dark blue', value=4./6)
+    Hue.create(name='purple', value=5./6)
 
 
 def init_database():

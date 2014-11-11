@@ -1,8 +1,10 @@
 define(['settings', 'color'], function(settings, color) {
-    return function(baseHue) {
-        this.minHue = baseHue;
-        this.maxHue = baseHue + 1 / settings.colorCount;
-        this.minBorder = baseHue;
+    return function(hue) {
+        this.id = hue.id;
+        this.name = hue.name;
+        this.minHue = hue.value;
+        this.maxHue = this.minHue + 1 / hues.length;
+        this.minBorder = this.minHue;
         this.maxBorder = this.maxHue;
         this.currentHue = this.minHue + Math.random() * (this.maxHue - this.minHue);
         this.isReversed = false;
@@ -29,7 +31,7 @@ define(['settings', 'color'], function(settings, color) {
         }
 
         this.isDone = function() {
-            return this.maxBorder - this.minBorder < settings.minDifference;
+            return this.maxBorder - this.minBorder < 1 / settings.accuracy / hues.length;
         }
 
         this.getPercentage = function() {

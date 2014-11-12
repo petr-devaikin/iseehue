@@ -3,7 +3,7 @@ define(['settings', 'color'], function(settings, color) {
         this.id = hue.id;
         this.name = hue.name;
         this.minHue = hue.value;
-        this.maxHue = this.minHue + 1 / hues.length;
+        this.maxHue = this.minHue + settings.hueWidth;
         this.minBorder = this.minHue;
         this.maxBorder = this.maxHue;
         this.currentHue = this.minHue + Math.random() * (this.maxHue - this.minHue);
@@ -31,7 +31,7 @@ define(['settings', 'color'], function(settings, color) {
         }
 
         this.isDone = function() {
-            return this.maxBorder - this.minBorder < 1 / settings.accuracy / hues.length;
+            return this.maxBorder - this.minBorder < settings.hueWidth / settings.accuracy;
         }
 
         this.getPercentage = function() {
@@ -43,15 +43,11 @@ define(['settings', 'color'], function(settings, color) {
         }
 
         this.getMinColor = function () {
-            return color.HSVtoStyle(this.isReversed ? this.maxHue : this.minHue,
-                                    settings.saturation,
-                                    settings.value);
+            return color.getDefaultColor(this.isReversed ? this.maxHue : this.minHue);
         }
 
         this.getMaxColor = function () {
-            return color.HSVtoStyle(this.isReversed ? this.minHue : this.maxHue,
-                                    settings.saturation,
-                                    settings.value);
+            return color.getDefaultColor(this.isReversed ? this.minHue : this.maxHue);
         }
     }
 });

@@ -1,19 +1,25 @@
-body div {
+body {
     position: relative;
     float: left;
 }
 
 #hueSample {
-    width: 100px;
-    height: 100px;
+    width: 10px;
+    height: 10px;
 }
 
 #baseColor {
-    width: 100px;
-    height: 100px;
+    width: 10px;
+    height: 10px;
 }
 
 #nextColor {
-    width: 100px;
-    height: 100px;
+    width: 10px;
+    height: 10px;
+}
+
+
+svg .colorArc {
+    fill: none;
+    stroke-width: 2;
 }

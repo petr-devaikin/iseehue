@@ -13,7 +13,9 @@
             requirejs.config({
                 baseUrl: "{{ url_for('static', filename='js') }}",
                 urlArgs: "bust=" + (new Date()).getTime(),
-                //paths: {
+                paths: {
+                    d3: "http://d3js.org/d3.v3.min",
+                }
                 //    jquery: 'jquery-2.1.1.min'
                 //},
             });
@@ -29,6 +31,6 @@
         <div id="nextColor">
         </div>
 
-        <div id="results"></div>
+        <svg id="results" width="400" height="400"></svg>
     </body>
 </html>

@@ -30,27 +30,32 @@ define(['dom', 'color'], function(dom, color) {
         }
     }
 
-    return function(data) {
-        var radius = 180;
-
-        drawCircle(200, 200, radius);
-
-        var opacity = 1;// / data.length;
-
+    function drawArcs(x, y, radius, data, isMine) {
         for (var i = 0; i < data.length; i++) {
             var hue = data[i].hue,
-                answers = data[i].answers;
+                answers = data[i].answers,
+                hue_name = hue.name.replace(" ", "_");
+            console.log("path.colorArc." + hue_name + (isMine ? ".mine" : ""));
             dom.results
-                .selectAll("path." + hue.name)
+                .selectAll("path.colorArc." + hue_name + (isMine ? ".mine" : ""))
                     .data(answers)
                 .enter().append("path")
-                    .classed("colorArc " + hue.name, true)
-                    .attr('stroke', color.getDefaultColor(hue.value, opacity))
+                    .classed("colorArc " + hue_name + (isMine ? " mine" : ""), true)
+                    .attr('stroke', color.getDefaultColor(hue.value))
                     .attr("d", function(d) {
                         return arcPath(radius, radius / 2, d.left * Math.PI / radius, d.right * Math.PI / radius)
                     })
                     .attr("transform", "translate(200,200)");
             console.log("color: " + hue.name + ", count: " + answers.length + "<br/>");
         }
+    }
+
+    return function(data, my_data) {
+        var radius = 180;
+
+        drawCircle(200, 200, radius);
+
+        drawArcs(200, 200, 180, data, false);
+        drawArcs(200, 200, 180, my_data, true);
     }
 });

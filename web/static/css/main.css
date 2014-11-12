@@ -1,3 +1,7 @@
+body {
+    background-color: #efefef;
+}
+
 body div {
     position: relative;
     float: left;
@@ -26,5 +30,12 @@ svg .palette {
 
 svg .colorArc {
     fill: none;
-    stroke-width: 0.5;
+    stroke-width: 0.3;
+    opacity: 0.5;
+}
+
+svg .colorArc.mine {
+    fill: none;
+    stroke-width: 1.5;
+    opacity: 0.7;
 }

@@ -1,5 +1,5 @@
 define({
-    saturation: 60,
+    saturation: 70,
     lightness: 60,
     accuracy: 64,
     hueWidth: 360 / 6,

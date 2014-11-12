@@ -4,8 +4,8 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'drawing/overall'],
         var colorBorder;
         //http.sendResults(palette);
         http.loadResults(function(response) {
-            console.log(response.hues);
-            dOverall(response.hues);
+            console.log(response.my_hues);
+            dOverall(response.hues, response.my_hues);
         });
 
         function showColorBorder() {

@@ -44,17 +44,22 @@ def save_results():
 
 @app.route('/results/')
 def results():
-    #user = User.get()
+    user = User.get()
 
     hues = []
+    my_hues = []
     for hue in Hue.select():
         answers = [answer.to_hash() for answer in hue.user_answers]
         hues.append({
             'hue': hue.to_hash(),
             'answers': answers
         })
+        my_hues.append({
+            'hue': hue.to_hash(),
+            'answers': [user.answers.join(Hue).where(Hue.id == hue.id)[0].to_hash()]
+        })
 
-    return jsonify(hues=hues)
+    return jsonify(hues=hues, my_hues=my_hues)
 
 
 if __name__ == '__main__':

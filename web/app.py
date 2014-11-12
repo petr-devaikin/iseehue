@@ -44,7 +44,7 @@ def save_results():
 
 @app.route('/results/')
 def results():
-    user = User.get()
+    #user = User.get()
 
     hues = []
     for hue in Hue.select():

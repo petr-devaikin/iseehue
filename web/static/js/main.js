@@ -2,7 +2,7 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'drawing/overall'],
     function(color, settings, Palette, dom, http, dOverall) {
         var palette = new Palette(hues);
         var colorBorder;
-        http.sendResults(palette);
+        //http.sendResults(palette);
         http.loadResults(function(response) {
             console.log(response.hues);
             dOverall(response.hues);

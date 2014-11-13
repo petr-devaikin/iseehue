@@ -1,53 +1,52 @@
 define(['color', 'settings', 'palette', 'dom', 'http'],
     function(color, settings, Palette, dom, http) {
-        return function() {
-            var palette = new Palette(settings.hues),
-                colorBorder;
+        var palette,
+            colorBorder;
 
-            function showColorBorder() {
-                colorBorder = palette.getNextColor();
-                if (colorBorder === undefined) {
-                    http.sendResults(palette, function(responce) {
-                        window.location = settings.indexUrl;
-                    });
-                    return;
-                }
+        function updateTestCase() {
+            dom.baseColor.style.backgroundColor = colorBorder.getMinColor();
+            dom.nextColor.style.backgroundColor = colorBorder.getMaxColor();
+            dom.hueSample.style.backgroundColor = color.getDefaultColor(colorBorder.currentHue);
+        }
 
-                dom.baseColorElement.style.backgroundColor = colorBorder.getMinColor();
-                dom.nextColorElement.style.backgroundColor = colorBorder.getMaxColor();
-                dom.hueSampleElement.style.backgroundColor = color.getDefaultColor(colorBorder.currentHue);
+        function loadNewTestCase() {
+            if ((colorBorder = palette.getNextColor()) === undefined) {
+                http.sendResults(palette, function(responce) {
+                    window.location = settings.indexUrl;
+                });
             }
+            else
+                updateTestCase();
+        }
 
-
+        function addEventHandlers() {
             function onBaseSelected() {
                 if (colorBorder !== undefined) {
-                    if (colorBorder.updateMinBorder())
-                        console.log(colorBorder.getPercentage());
-                    showColorBorder();
+                    colorBorder.updateMinBorder();
+                    loadNewTestCase();
                 }
             }
 
             function onNextSelected() {
                 if (colorBorder !== undefined) {
-                    if (colorBorder.updateMaxBorder())
-                        console.log(colorBorder.getPercentage());
-                    showColorBorder();
+                    colorBorder.updateMaxBorder();
+                    loadNewTestCase();
                 }
             }
 
-            function onKeyDown(e) {
-                if (e.keyCode === 37)
-                    onBaseSelected();
-                else if (e.keyCode === 39)
-                    onNextSelected();
-            }
+            dom.baseColor.onclick = onBaseSelected;
+            dom.nextColor.onclick = onNextSelected;
 
-            document.addEventListener("keydown", onKeyDown);
+            document.addEventListener("keydown", function(e) {
+                if (e.keyCode === 37) onBaseSelected();
+                else if (e.keyCode === 39) onNextSelected();
+            });
+        }
 
-            dom.baseColorElement.onclick = onBaseSelected;
-            dom.nextColorElement.onclick = onNextSelected;
-            
-            showColorBorder();
+        return function() {
+            palette = new Palette(settings.hues);
+            addEventHandlers(colorBorder);
+            loadNewTestCase();
         }
     }
 );

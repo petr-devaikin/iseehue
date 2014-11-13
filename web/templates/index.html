@@ -1,36 +1,20 @@
-<!doctype html>
-<html>
-    <head>
-        <title>I See Hue</title>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+{% extends "layout.html" %}
 
-        <script src="{{ url_for('static', filename='js/require.js') }}"></script>
-        <script>
-            var sendResultUrl = "{{ url_for('save_results') }}";
-            var loadResultUrl = "{{ url_for('results') }}";
-            var hues = {{ hues | safe }};
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chord.css') }}">
+{% endblock %}
 
-            requirejs.config({
-                baseUrl: "{{ url_for('static', filename='js') }}",
-                urlArgs: "bust=" + (new Date()).getTime(),
-                paths: {
-                    d3: "http://d3js.org/d3.v3.min",
-                }
-                //    jquery: 'jquery-2.1.1.min'
-                //},
-            });
-            
-            requirejs(['main']);
-        </script>
-    </head>
-    <body>
-        <div id="baseColor">
-        </div>
-        <div id="hueSample">
-        </div>
-        <div id="nextColor">
-        </div>
+{% block script %}
+    requirejs(['main', 'settings'], function(main, settings) {
+        settings.loadResultUrl = "{{ url_for('results') }}";
+        main();
+    });
+{% endblock %}
 
-        <svg id="results" width="400" height="400"></svg>
-    </body>
-</html>
+{% block body %}
+    <svg id="results" width="400" height="400">
+        <g id="chords"></g>
+        <g id="palette"></g>
+    </svg>
+    <a href="{{ url_for('test') }}">Start test</a>
+{% endblock %}

@@ -1,7 +1,6 @@
-define(['qwest', 'settings'], function(qwest, settings) {
+define(['lib/qwest', 'settings'], function(qwest, settings) {
     return {
-        sendResults: function(palette) {
-            console.log('-----');
+        sendResults: function(palette, callback) {
             var borders = [];
             for (var i = 0; i < palette.colors.length; i++) {
                 console.log(palette.colors[i].getPercentage());
@@ -11,13 +10,11 @@ define(['qwest', 'settings'], function(qwest, settings) {
                     value: palette.colors[i].currentHue
                 });
             }
-            qwest.post(sendResultUrl, { borders: JSON.stringify(borders) })
-                .then(function(response) {
-                    console.log('response');
-                });
+            qwest.post(settings.sendResultUrl, { borders: JSON.stringify(borders) })
+                .then(callback);
         },
         loadResults: function(callback) {
-            qwest.get(loadResultUrl)
+            qwest.get(settings.loadResultUrl)
                 .then(callback);
         }
 }

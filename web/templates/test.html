@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/test.css') }}">
+{% endblock %}
+
+{% block script %}    
+    requirejs(['test', 'settings'], function(test, settings) {
+        settings.sendResultUrl = "{{ url_for('save_results') }}";
+        settings.indexUrl = "{{ url_for('index') }}";
+        settings.hues = {{ hues | safe }};
+        test();
+    });
+{% endblock %}
+
+{% block body %}
+    <div id="baseColor">
+    </div>
+    <div id="hueSample">
+    </div>
+    <div id="nextColor">
+    </div>
+{% endblock %}

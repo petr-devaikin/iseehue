@@ -13,9 +13,13 @@ init_db(app)
 
 @app.route('/')
 def index():
-    hues = json.dumps([h.to_hash() for h in Hue.select()])
+    return render_template('index.html')
 
-    return render_template('index.html', hues=hues)
+
+@app.route('/test')
+def test():
+    hues = json.dumps([h.to_hash() for h in Hue.select()])
+    return render_template('test.html', hues=hues)
 
 
 @app.route('/results/save', methods=['POST'])
@@ -39,7 +43,7 @@ def save_results():
     except peewee.IntegrityError:
         return 'duplicate result', 500
 
-    return 'ok'
+    return jsonify(result='ok')
 
 
 @app.route('/results/')

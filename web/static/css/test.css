@@ -1,0 +1,19 @@
+body div {
+    position: relative;
+    float: left;
+}
+
+#hueSample {
+    width: 100px;
+    height: 100px;
+}
+
+#baseColor {
+    width: 100px;
+    height: 100px;
+}
+
+#nextColor {
+    width: 100px;
+    height: 100px;
+}

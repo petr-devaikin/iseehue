@@ -1,4 +1,4 @@
-define(['dom', 'color'], function(dom, color) {
+define(['dom', 'color', 'settings', 'lib/d3'], function(dom, color, settings, d3) {
     function angleToCoords(r, angle) {
         return {
             x: r * Math.sin(angle),
@@ -21,9 +21,8 @@ define(['dom', 'color'], function(dom, color) {
             .outerRadius(radius);
 
         for (var i = 0; i < 360; i++) {
-            dom.results
+            dom.svg.palette
                 .append("path")
-                .classed("palette", true)
                 .attr("d", arc.startAngle(i / 180 * Math.PI).endAngle((i + 2) / 180 * Math.PI))
                 .attr("stroke", color.getDefaultColor(i + 0.5))
                 .attr("transform", "translate(200,200)");
@@ -32,16 +31,19 @@ define(['dom', 'color'], function(dom, color) {
 
     function drawArcs(x, y, radius, data, isMine) {
         for (var i = 0; i < data.length; i++) {
+            var opacity = settings.chordMinOpacity +
+                (settings.chordMaxOpacity - settings.chordMinOpacity) / data[i].answers.length;
+            if (isMine) opacity = 1;
+
             var hue = data[i].hue,
                 answers = data[i].answers,
                 hue_name = hue.name.replace(" ", "_");
-            console.log("path.colorArc." + hue_name + (isMine ? ".mine" : ""));
-            dom.results
-                .selectAll("path.colorArc." + hue_name + (isMine ? ".mine" : ""))
+            dom.svg.chords
+                .selectAll("path." + hue_name + (isMine ? ".mine" : ""))
                     .data(answers)
                 .enter().append("path")
-                    .classed("colorArc " + hue_name + (isMine ? " mine" : ""), true)
-                    .attr('stroke', color.getDefaultColor(hue.value))
+                    .classed(hue_name + (isMine ? " mine" : ""), true)
+                    .attr('stroke', color.getDefaultColor(hue.value, opacity))
                     .attr("d", function(d) {
                         return arcPath(radius, radius / 2, d.left * Math.PI / radius, d.right * Math.PI / radius)
                     })

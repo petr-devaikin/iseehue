@@ -24,6 +24,8 @@ def test():
 
 @app.route('/results/save', methods=['POST'])
 def save_results():
+    #check if results already exist
+
     results = json.loads(request.form.get('borders'))
     user = User.create(external_id='a')
 

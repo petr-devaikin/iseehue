@@ -9,15 +9,55 @@
         settings.sendResultUrl = "{{ url_for('save_results') }}";
         settings.indexUrl = "{{ url_for('index') }}";
         settings.hues = {{ hues | safe }};
-        test();
+        test.initPage();
     });
 {% endblock %}
 
 {% block body %}
-    <div id="baseColor">
+    <div id="introduction">
+        <p>
+            You will see about 30 colour samples. Your task is to define which basic hue is closer to the sample. In each case you will have 2 options. Choose one of them by clicking or pressing “←” or “→” key.
+        </p>
+        <p>
+            For example
+
+            <div class="testCase">
+                <div class="orDescription description">or</div>
+                <div class="sampleContainer colorContainer">
+                    <div id="hueSampleExample" class="huePanel"></div>
+                    <div class="leftDescription description">This colour</div>
+                    <div class="rightDescription description">is more</div>
+                </div>
+                <div class="baseContainer colorContainer">
+                    <div class="leftDescription description">dark blue<br />←</div>
+                    <div id="baseColorExample" class="huePanel"></div>
+                </div>
+                <div class="nextContainer colorContainer">
+                    <div class="rightDescription description">blue?<br />→</div>
+                    <div id="nextColorExample" class="huePanel"></div>
+                </div>
+            </div>
+        </p>
+        <p>
+            <button id="hideIntroduction"/>Start!</button>
+        </p>
     </div>
-    <div id="hueSample">
-    </div>
-    <div id="nextColor">
+    <div id="testPanel">
+        <div class="testCase">
+            <div class="orDescription description">or</div>
+            <div class="sampleContainer colorContainer">
+                <div id="hueSample" class="huePanel"></div>
+                <div class="leftDescription description">This colour</div>
+                <div class="rightDescription description">is more</div>
+            </div>
+            <div class="baseContainer colorContainer">
+                <div class="leftDescription description">dark blue</div>
+                <div id="baseColor" class="huePanel"></div>
+            </div>
+            <div class="nextContainer colorContainer">
+                <div class="rightDescription description">blue?</div>
+                <div id="nextColor" class="huePanel"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}

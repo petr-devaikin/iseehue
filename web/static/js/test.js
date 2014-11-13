@@ -19,7 +19,7 @@ define(['color', 'settings', 'palette', 'dom', 'http'],
                 updateTestCase();
         }
 
-        function addEventHandlers() {
+        function addTestEventHandlers() {
             function onBaseSelected() {
                 if (colorBorder !== undefined) {
                     colorBorder.updateMinBorder();
@@ -43,10 +43,23 @@ define(['color', 'settings', 'palette', 'dom', 'http'],
             });
         }
 
-        return function() {
-            palette = new Palette(settings.hues);
-            addEventHandlers(colorBorder);
-            loadNewTestCase();
+        function hideIntroduction() {
+            dom.test.introduction.classList.add("hidden");
+        }
+
+        function addIntroductionHandlers() {
+            dom.test.hideIntroductionButton.onclick = function() {
+                hideIntroduction();
+                addTestEventHandlers(colorBorder);
+                loadNewTestCase();
+            }
+        }
+
+        return {
+            initPage: function() {
+                palette = new Palette(settings.hues);
+                addIntroductionHandlers();
+            }
         }
     }
 );

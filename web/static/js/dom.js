@@ -7,5 +7,9 @@ define(['lib/d3'], function(d3) {
             palette: d3.select("#results g#palette"), 
             chords: d3.select("#results g#chords"), 
         },
+        test: {
+            introduction: document.getElementById("introduction"),
+            hideIntroductionButton: document.getElementById("hideIntroduction"),
+        }
     }
 });

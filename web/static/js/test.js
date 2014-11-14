@@ -8,16 +8,14 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
                 dom.test.title.text('Case #' + palette.caseNumber);
             }
 
-            dom.test.baseColor.style.backgroundColor = colorBorder.getMinColor();
-            dom.test.nextColor.style.backgroundColor = colorBorder.getMaxColor();
+            dom.test.baseColor.style({ 'background-color': colorBorder.getMinColor() });
+            dom.test.nextColor.style({ 'background-color': colorBorder.getMaxColor() });
             dom.test.baseColorName.text(colorBorder.getMinName());
             dom.test.nextColorName.text(colorBorder.getMaxName());
             dom.test.hueSample.style.backgroundColor = color.getDefaultColor(colorBorder.currentHue);
 
-            dom.test.baseColor.classList.remove('notSelected');
-            dom.test.nextColor.classList.remove('notSelected');
-            dom.test.baseColor.classList.remove('afterSelect');
-            dom.test.nextColor.classList.remove('afterSelect');
+            dom.test.baseColor.classed('afterSelect', false);
+            dom.test.nextColor.classed('afterSelect', false);
         }
 
         function loadExample() {
@@ -57,36 +55,57 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
 
         function clearEventHandlers() {
             onBaseSelected = function() {};
-            onBaseSelected = function() {};
+            onNextSelected = function() {};
         }
 
         function showLetsStart() {
-            dom.test.hint.classed('hidden', true);
-            dom.test.letsStart.classList.remove('hidden');
+            dom.test.hint
+                    .interrupt()
+                    .transition()
+                    .duration(settings.fadePeriod)
+                    .style('opacity', 0)
+                    .each("end", function(e) {
+                        e.remove();
+                    });
+            dom.test.letsStart
+                    .interrupt()
+                    .style('opacity', 0)
+                    .classed('hidden', false)
+                    .transition()
+                    .duration(settings.fadePeriod)
+                    .style('opacity', 1);
             dom.test.hideIntroductionButton.focus();
         }
 
         function setExampleEventHandlers() {
             onBaseSelected = function() {
-                dom.test.baseColor.classList.add('afterSelect');
-                dom.test.nextColor.classList.add('afterSelect');
-                dom.test.nextColor.classList.add('notSelected');
+                dom.test.baseColor.classed('afterSelect', true);
+                dom.test.nextColor.classed('afterSelect', true);
+                dom.test.nextColor
+                    .interrupt()
+                    .transition()
+                    .duration(settings.fadePeriod)
+                    .style('opacity', settings.fadeOpacity);
                 showLetsStart();
                 clearEventHandlers();
             }
 
             onNextSelected = function() {
-                dom.test.baseColor.classList.add('afterSelect');
-                dom.test.nextColor.classList.add('afterSelect');
-                dom.test.baseColor.classList.add('notSelected');
+                dom.test.baseColor.classed('afterSelect', true);
+                dom.test.nextColor.classed('afterSelect', true);
+                dom.test.baseColor
+                    .interrupt()
+                    .transition()
+                    .duration(settings.fadePeriod)
+                    .style('opacity', settings.fadeOpacity);
                 showLetsStart();
                 clearEventHandlers();
             }
         }
 
         function addTestEventHandlers() {
-            dom.test.baseColor.onclick = function() { onBaseSelected(); }
-            dom.test.nextColor.onclick = function() { onNextSelected(); }
+            dom.test.baseColor.on('click', function() { onBaseSelected(); });
+            dom.test.nextColor.on('click', function() { onNextSelected(); });
 
             document.addEventListener("keydown", function(e) {
                 if (e.keyCode === 37) onBaseSelected();

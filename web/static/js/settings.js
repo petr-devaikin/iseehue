@@ -1,4 +1,6 @@
 define({
+    fadePeriod: 300,
+    fadeOpacity: 0.2,
     saturation: 70,
     lightness: 60,
     chordMaxOpacity: 1,

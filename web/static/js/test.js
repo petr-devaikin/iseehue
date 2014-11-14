@@ -60,20 +60,26 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
             onBaseSelected = function() {};
         }
 
+        function showLetsStart() {
+            dom.test.hint.classed('hidden', true);
+            dom.test.letsStart.classList.remove('hidden');
+            dom.test.hideIntroductionButton.focus();
+        }
+
         function setExampleEventHandlers() {
             onBaseSelected = function() {
-                dom.test.letsStart.classList.remove('hidden');
                 dom.test.baseColor.classList.add('afterSelect');
                 dom.test.nextColor.classList.add('afterSelect');
                 dom.test.nextColor.classList.add('notSelected');
+                showLetsStart();
                 clearEventHandlers();
             }
 
             onNextSelected = function() {
-                dom.test.letsStart.classList.remove('hidden');
                 dom.test.baseColor.classList.add('afterSelect');
                 dom.test.nextColor.classList.add('afterSelect');
                 dom.test.baseColor.classList.add('notSelected');
+                showLetsStart();
                 clearEventHandlers();
             }
         }
@@ -89,8 +95,7 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
         }
 
         function hideIntroduction() {
-            dom.test.introduction.classList.add("hidden");
-            dom.test.letsStart.classList.add("hidden");
+            dom.test.tutorial.classed("hidden", true);
         }
 
         function addIntroductionHandlers() {

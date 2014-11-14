@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block style %}
+    <link href='http://fonts.googleapis.com/css?family=Bad+Script' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/test.css') }}">
 {% endblock %}
 
@@ -14,46 +15,54 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div id="introduction">
-            <p>
-                You will see about 30 colour samples. Your task is to define which basic hue is closer to the sample.
+    <div class="verticalCentred">
+        <div class="container">
+            <div class="tutorial">
+                <p>
+                    You will see about 30 colour samples. Your task is to define which basic hue is closer to the sample.
+                </p>
+                <p>
+                    In each case you will have 2 options. Choose one of them by clicking or pressing “←” or “→” key.
+                </p>
+            </div>
+            <p id="caseTitle">
+                For example
             </p>
-            <p>
-                In each case you will have 2 options. Choose one of them by clicking or pressing “←” or “→” key.
-            </p>
-        </div>
-        <p id="caseTitle">
-            For example
-        </p>
 
-        <div id="testPanel">
-            <div class="testCase">
-                <div class="orDescription description">or</div>
-                <div id="sampleContainer" class="colorContainer">
-                    <div id="hueSample" class="huePanel"></div>
-                    <div class="leftDescription description">This colour</div>
-                    <div class="rightDescription description">is more</div>
-                </div>
-                <div id="baseContainer" class="colorContainer">
-                    <div class="leftDescription description">
-                        <span id="baseColorName">dark blue</span><br />
-                        ←
+            <div id="testPanel">
+                <div class="testCase">
+                    <div class="orDescription description">or</div>
+                    <div id="sampleContainer" class="colorContainer">
+                        <div id="hueSample" class="huePanel"></div>
+                        <div class="leftDescription description">This colour</div>
+                        <div class="rightDescription description">is more</div>
                     </div>
-                    <div id="baseColor" class="huePanel"></div>
-                </div>
-                <div id="nextContainer" class="colorContainer">
-                    <div class="rightDescription description">
-                        <span id="nextColorName">blue</span>?<br />
-                        →
+                    <div id="baseContainer" class="colorContainer">
+                        <div class="leftDescription description">
+                            <span id="baseColorName">dark blue</span>
+                        </div>
+                        <div id="baseColor" class="huePanel"></div>
+                        <div id="leftArrow" class="tutorial hint">
+                            <img src="{{ url_for('static', filename='img/arrow_left.png') }}" width="40" />
+                            <div>Click here or press “←” to choose dark blue</div>
+                        </div>
                     </div>
-                    <div id="nextColor" class="huePanel"></div>
+                    <div id="nextContainer" class="colorContainer">
+                        <div class="rightDescription description">
+                            <span id="nextColorName">purple</span>?
+                        </div>
+                        <div id="nextColor" class="huePanel"></div>
+                        <div id="rightArrow" class="tutorial hint">
+                            <img src="{{ url_for('static', filename='img/arrow_right.png') }}" width="38" />
+                            <div>Click here or press “→” to choose purple</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <p id="letsStart" class="hidden">
-            Alright, you got it. <button id="hideIntroduction">Let's start!</button>
-        </p>
+            <p id="letsStart" class="hidden tutorial">
+                Alright, you got it. <button id="hideIntroduction">Let's start!</button>
+            </p>
+        </div>
     </div>
 {% endblock %}

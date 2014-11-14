@@ -1,81 +1,109 @@
-.container {
-  position: relative;
-  min-width: 400px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto; }
+.verticalCentred {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
 
-  #introduction.hidden {
-    visibility: hidden; }
+  .container {
+    position: relative;
+    min-width: 400px;
+    max-width: 760px;
+    height: 550px;
+    margin: 20px auto auto; }
 
-.testCase {
-  position: relative;
-  width: 240px;
-  height: 250px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 30px;
-  margin-bottom: 20px; }
-  .testCase .description {
-    position: absolute;
-    font-size: 14px;
-    color: #bbb;
-    white-space: nowrap; }
-    .testCase .description.orDescription {
-      top: 190px;
-      left: 50%;
-      margin-left: -7px; }
-  .testCase .colorContainer {
-    position: absolute; }
-    .testCase .colorContainer .huePanel {
-      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1); }
-      .testCase .colorContainer#sampleContainer {
-        left: 50%;
-        margin-left: -60px;
-        width: 120px;
-        top: 0; }
-        .testCase .colorContainer#sampleContainer .leftDescription {
-          top: 50px;
-          right: 130px; }
-          .testCase .colorContainer#sampleContainer .rightDescription {
-            top: 50px;
-            left: 130px; }
-            .testCase .colorContainer#sampleContainer .huePanel {
-              width: 120px;
-              height: 120px;
-              border-radius: 60px; }
-    .testCase .colorContainer#baseContainer, .testCase .colorContainer#nextContainer {
-      top: 150px;
-      width: 100px; }
-      .testCase .colorContainer#baseContainer .huePanel,
-      .testCase .colorContainer#nextContainer .huePanel {
-        width: 100px;
-        height: 100px;
-        border-radius: 50px; }
-        .testCase .colorContainer#baseContainer .huePanel:not(.afterSelect),
-        .testCase .colorContainer#nextContainer .huePanel:not(.afterSelect) {
-          cursor: pointer; }
-          .testCase .colorContainer#baseContainer .huePanel.notSelected,
-          .testCase .colorContainer#nextContainer .huePanel.notSelected {
-            opacity: 0.1; }
-    .testCase .colorContainer#baseContainer .leftDescription {
-      top: 40px;
-      right: 110px;
-      text-align: right; }
-    .testCase .colorContainer#nextContainer {
-      right: 0px; }
-      .testCase .colorContainer#nextContainer .rightDescription {
-        top: 40px;
-        left: 110px; }
+    .testCase {
+      position: relative;
+      width: 240px;
+      height: 250px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 30px;
+      margin-bottom: 20px; }
+      .testCase .description {
+        position: absolute;
+        font-size: 14px;
+        color: #bbb;
+        white-space: nowrap; }
+        .testCase .description.orDescription {
+          top: 190px;
+          left: 50%;
+          margin-left: -7px; }
+      .testCase .colorContainer {
+        position: absolute; }
+        .testCase .colorContainer .huePanel {
+          box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1); }
+          .testCase .colorContainer#sampleContainer {
+            left: 50%;
+            margin-left: -60px;
+            width: 120px;
+            top: 0; }
+            .testCase .colorContainer#sampleContainer .leftDescription {
+              top: 50px;
+              right: 130px; }
+              .testCase .colorContainer#sampleContainer .rightDescription {
+                top: 50px;
+                left: 130px; }
+                .testCase .colorContainer#sampleContainer .huePanel {
+                  width: 120px;
+                  height: 120px;
+                  border-radius: 60px; }
+        .testCase .colorContainer#baseContainer, .testCase .colorContainer#nextContainer {
+          top: 150px;
+          width: 100px; }
+          .testCase .colorContainer#baseContainer .huePanel,
+          .testCase .colorContainer#nextContainer .huePanel {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px; }
+            .testCase .colorContainer#baseContainer .huePanel:not(.afterSelect),
+            .testCase .colorContainer#nextContainer .huePanel:not(.afterSelect) {
+              cursor: pointer; }
+              .testCase .colorContainer#baseContainer .huePanel:not(.afterSelect):hover,
+              .testCase .colorContainer#nextContainer .huePanel:not(.afterSelect):hover {
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.18); }
+            .testCase .colorContainer#baseContainer .huePanel.notSelected,
+            .testCase .colorContainer#nextContainer .huePanel.notSelected {
+              opacity: 0.1; }
+        .testCase .colorContainer .hint {
+          font-family: 'Bad Script', cursive;
+          font-size: 18px;
+          width: 200px;
+          line-height: 1.2em; }
+          .testCase .colorContainer#baseContainer .leftDescription {
+            top: 40px;
+            right: 110px;
+            text-align: right; }
+            .testCase .colorContainer#baseContainer #leftArrow {
+              position: absolute;
+              left: -110px;
+              top: 90px;
+              text-align: center; }
+              .testCase .colorContainer#baseContainer #leftArrow img {
+                opacity: 0.6; }
+        .testCase .colorContainer#nextContainer {
+          right: 0px; }
+          .testCase .colorContainer#nextContainer .rightDescription {
+            top: 40px;
+            left: 110px; }
+            .testCase .colorContainer#nextContainer #rightArrow {
+              font-family: 'Bad Script', cursive;
+              position: absolute;
+              right: -110px;
+              top: 90px;
+              text-align: center; }
+              .testCase .colorContainer#nextContainer #rightArrow img {
+                opacity: 0.6; }
 
 #letsStart {
   text-align: center;
   margin-top: 2em; }
-  #letsStart.hidden {
-    visibility: hidden; }
 
-#caseTitle {
-  font-style: italic;
-  margin-top: 2em;
-  font-size: 20px;
-  text-align: center; }
+  #caseTitle {
+    font-style: italic;
+    margin-top: 2em;
+    font-size: 20px;
+    text-align: center; }
+
+    .tutorial.hidden {
+      visibility: hidden; }

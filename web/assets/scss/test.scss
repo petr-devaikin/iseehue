@@ -4,21 +4,28 @@ $basicTop: 150px;
 $descriptionColor: #bbb;
 
 $textMinWidth: 400px;
-$textMaxWidth: 800px;
+$textMaxWidth: 760px;
+
+$arrowOpacity: 0.6;
+$hintWidth: 200px;
+
+$commonShadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+$hoveredShadow: 0 0 20px 0 rgba(0, 0, 0, 0.18);
+
+.verticalCentred {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
 
 .container {
     position: relative;
     min-width: $textMinWidth;
     max-width: $textMaxWidth;
-    margin-left: auto;
-    margin-right: auto;
-
-}
-
-#introduction {
-    &.hidden {
-        visibility: hidden;
-    }
+    height: 550px;
+    margin: 20px auto auto;
 }
 
 .testCase {
@@ -47,7 +54,7 @@ $textMaxWidth: 800px;
         position: absolute;
 
         .huePanel {
-            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: $commonShadow;
         }
 
         &#sampleContainer {
@@ -84,6 +91,10 @@ $textMaxWidth: 800px;
 
                 &:not(.afterSelect) {
                     cursor: pointer;
+
+                    &:hover {
+                        box-shadow: $hoveredShadow;
+                    }
                 }
 
                 &.notSelected {
@@ -92,11 +103,29 @@ $textMaxWidth: 800px;
             }
         }
 
+        .hint {
+            font-family: 'Bad Script', cursive;
+            font-size: 18px;
+            width: $hintWidth;
+            line-height: 1.2em;
+        }
+
         &#baseContainer {
             .leftDescription {
                 top: $basicDiameter / 2 - 10;
                 right: $basicDiameter + 10;
                 text-align: right;
+            }
+
+            #leftArrow {
+                position: absolute;
+                left: -110px;
+                top: 90px;
+                text-align: center;
+
+                img {
+                    opacity: $arrowOpacity;
+                }
             }
         }
 
@@ -107,6 +136,18 @@ $textMaxWidth: 800px;
                 top: $basicDiameter / 2 - 10;
                 left: $basicDiameter + 10;
             }
+
+            #rightArrow {
+                font-family: 'Bad Script', cursive;
+                position: absolute;
+                right: -110px;
+                top: 90px;
+                text-align: center;
+
+                img {
+                    opacity: $arrowOpacity;
+                }
+            }
         }
     }
 }
@@ -114,10 +155,6 @@ $textMaxWidth: 800px;
 #letsStart {
     text-align: center;
     margin-top: 2em;
-
-    &.hidden {
-        visibility: hidden;
-    }
 }
 
 #caseTitle {
@@ -125,4 +162,10 @@ $textMaxWidth: 800px;
     margin-top: 2em;
     font-size: 20px;
     text-align: center;
+}
+
+.tutorial {
+    &.hidden {
+        visibility: hidden;
+    }
 }

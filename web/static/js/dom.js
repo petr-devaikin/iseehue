@@ -5,7 +5,7 @@ define(['lib/domReady!', 'lib/d3'], function(doc, d3) {
             chords: d3.select("#results g#chords"), 
         },
         test: {
-            introduction: doc.getElementById("introduction"),
+            tutorial: d3.selectAll(".tutorial"),
             letsStart: doc.getElementById("letsStart"),
             hideIntroductionButton: doc.getElementById("hideIntroduction"),
             baseColorName: d3.select("#baseColorName"),
@@ -14,6 +14,7 @@ define(['lib/domReady!', 'lib/d3'], function(doc, d3) {
             nextColor: doc.getElementById("nextColor"),
             hueSample: doc.getElementById("hueSample"),
             title: d3.select("#caseTitle"),
+            hint: d3.selectAll(".hint"),
         }
     }
 });

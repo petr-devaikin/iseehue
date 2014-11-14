@@ -5,7 +5,7 @@ define(['lib/qwest', 'settings'], function(qwest, settings) {
             for (var i = 0; i < palette.colors.length; i++) {
                 console.log(palette.colors[i].getPercentage());
                 borders.push({ 
-                    id: palette.colors[i].id,
+                    id: palette.colors[i].minId,
                     hue: palette.colors[i].minHue,
                     value: palette.colors[i].currentHue
                 });

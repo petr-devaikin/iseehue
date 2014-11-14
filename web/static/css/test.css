@@ -32,7 +32,8 @@
       .testCase .colorContainer {
         position: absolute; }
         .testCase .colorContainer .huePanel {
-          box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1); }
+          box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+          transition: box-shadow 0.2s ease-out 0s; }
           .testCase .colorContainer#sampleContainer {
             left: 50%;
             margin-left: -60px;
@@ -61,7 +62,7 @@
               cursor: pointer; }
               .testCase .colorContainer#baseContainer .huePanel:not(.afterSelect):hover,
               .testCase .colorContainer#nextContainer .huePanel:not(.afterSelect):hover {
-                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.18); }
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2); }
             .testCase .colorContainer#baseContainer .huePanel.notSelected,
             .testCase .colorContainer#nextContainer .huePanel.notSelected {
               opacity: 0.1; }

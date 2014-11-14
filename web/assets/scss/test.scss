@@ -10,7 +10,7 @@ $arrowOpacity: 0.6;
 $hintWidth: 200px;
 
 $commonShadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
-$hoveredShadow: 0 0 20px 0 rgba(0, 0, 0, 0.18);
+$hoveredShadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 
 .verticalCentred {
     position: absolute;
@@ -55,6 +55,7 @@ $hoveredShadow: 0 0 20px 0 rgba(0, 0, 0, 0.18);
 
         .huePanel {
             box-shadow: $commonShadow;
+            transition: box-shadow 0.2s ease-out 0s;
         }
 
         &#sampleContainer {

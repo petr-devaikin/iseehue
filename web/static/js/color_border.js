@@ -1,9 +1,13 @@
 define(['settings', 'color'], function(settings, color) {
-    return function(hue) {
-        this.id = hue.id;
-        this.name = hue.name;
-        this.minHue = hue.value;
-        this.maxHue = this.minHue + settings.hueWidth;
+    return function(baseHue, nextHue) {
+        this.minId = baseHue.id;
+        this.minName = baseHue.name;
+        this.minHue = baseHue.value;
+
+        this.maxId = nextHue.id;
+        this.maxName = nextHue.name;
+        this.maxHue = nextHue.value;
+
         this.minBorder = this.minHue;
         this.maxBorder = this.maxHue;
         this.currentHue = this.minHue + Math.random() * (this.maxHue - this.minHue);
@@ -48,6 +52,14 @@ define(['settings', 'color'], function(settings, color) {
 
         this.getMaxColor = function () {
             return color.getDefaultColor(this.isReversed ? this.minHue : this.maxHue);
+        }
+
+        this.getMinName = function () {
+            return this.isReversed ? this.maxName : this.minName;
+        }
+
+        this.getMaxName = function () {
+            return this.isReversed ? this.minName : this.maxName;
         }
     }
 });

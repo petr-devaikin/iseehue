@@ -1,0 +1,128 @@
+$sampleDiameter: 120px;
+$basicDiameter: 100px;
+$basicTop: 150px;
+$descriptionColor: #bbb;
+
+$textMinWidth: 400px;
+$textMaxWidth: 800px;
+
+.container {
+    position: relative;
+    min-width: $textMinWidth;
+    max-width: $textMaxWidth;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#introduction {
+    &.hidden {
+        visibility: hidden;
+    }
+}
+
+.testCase {
+    position: relative;
+    width: 2 * $sampleDiameter;
+    height: $basicTop + $basicDiameter;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+    .description {
+        position: absolute;
+        font-size: 14px;
+        color: $descriptionColor;
+        white-space: nowrap;
+
+        &.orDescription {
+            top: $basicTop + $basicDiameter / 2 - 10;
+            left: 50%;
+            margin-left: -7px;
+        }
+    }
+
+    .colorContainer {
+        position: absolute;
+
+        .huePanel {
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        &#sampleContainer {
+            left: 50%;
+            margin-left: -$sampleDiameter / 2;
+            width: $sampleDiameter;
+            top: 0;
+
+            .leftDescription {
+                top: $sampleDiameter / 2 - 10;
+                right: $sampleDiameter + 10;
+            }
+
+            .rightDescription {
+                top: $sampleDiameter / 2 - 10;
+                left: $sampleDiameter + 10;
+            }
+
+            .huePanel {
+                width: $sampleDiameter;
+                height: $sampleDiameter;
+                border-radius: $sampleDiameter / 2;
+            }
+        }
+
+        &#baseContainer, &#nextContainer {
+            top: $basicTop;  
+            width: $basicDiameter;
+
+            .huePanel {
+                width: $basicDiameter;
+                height: $basicDiameter;
+                border-radius: $basicDiameter / 2;
+
+                &:not(.afterSelect) {
+                    cursor: pointer;
+                }
+
+                &.notSelected {
+                    opacity: 0.1;
+                }
+            }
+        }
+
+        &#baseContainer {
+            .leftDescription {
+                top: $basicDiameter / 2 - 10;
+                right: $basicDiameter + 10;
+                text-align: right;
+            }
+        }
+
+        &#nextContainer {
+            right: 0px;
+
+            .rightDescription {
+                top: $basicDiameter / 2 - 10;
+                left: $basicDiameter + 10;
+            }
+        }
+    }
+}
+
+#letsStart {
+    text-align: center;
+    margin-top: 2em;
+
+    &.hidden {
+        visibility: hidden;
+    }
+}
+
+#caseTitle {
+    font-style: italic;
+    margin-top: 2em;
+    font-size: 20px;
+    text-align: center;
+}

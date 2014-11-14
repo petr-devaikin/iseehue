@@ -1,15 +1,19 @@
-define(['lib/d3'], function(d3) {
+define(['lib/domReady!', 'lib/d3'], function(doc, d3) {
     return {
-        baseColor: document.getElementById("baseColor"),
-        nextColor: document.getElementById("nextColor"),
-        hueSample: document.getElementById("hueSample"),
         svg: {
             palette: d3.select("#results g#palette"), 
             chords: d3.select("#results g#chords"), 
         },
         test: {
-            introduction: document.getElementById("introduction"),
-            hideIntroductionButton: document.getElementById("hideIntroduction"),
+            introduction: doc.getElementById("introduction"),
+            letsStart: doc.getElementById("letsStart"),
+            hideIntroductionButton: doc.getElementById("hideIntroduction"),
+            baseColorName: d3.select("#baseColorName"),
+            nextColorName: d3.select("#nextColorName"),
+            baseColor: doc.getElementById("baseColor"),
+            nextColor: doc.getElementById("nextColor"),
+            hueSample: doc.getElementById("hueSample"),
+            title: d3.select("#caseTitle"),
         }
     }
 });

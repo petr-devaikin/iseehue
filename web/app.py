@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask.ext.scss import Scss
 from .db.engine import init_db, get_db
 from .db.models import Hue, User, UserAnswer
 import json
@@ -7,6 +8,8 @@ import peewee
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('web.default_settings')
 app.config.from_pyfile('application.cfg', silent=True)
+
+Scss(app)
 
 init_db(app)
 

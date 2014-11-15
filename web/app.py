@@ -1,17 +1,34 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, session, url_for
 from flask.ext.scss import Scss
+from flask_oauthlib.client import OAuth, OAuthException
 from .db.engine import init_db, get_db
 from .db.models import Hue, User, UserAnswer
 import json
 import peewee
 
+
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('web.default_settings')
 app.config.from_pyfile('application.cfg', silent=True)
 
+app.secret_key = 'development'
+
 Scss(app)
+oauth = OAuth(app)
 
 init_db(app)
+
+
+facebook = oauth.remote_app(
+    'facebook',
+    consumer_key=app.config['FACEBOOK_APP_ID'],
+    consumer_secret=app.config['FACEBOOK_APP_SECRET'],
+    request_token_params={'scope': 'email'},
+    base_url='https://graph.facebook.com',
+    request_token_url=None,
+    access_token_url='/oauth/access_token',
+    authorize_url='https://www.facebook.com/dialog/oauth'
+)
 
 
 @app.route('/')
@@ -69,6 +86,42 @@ def results():
         })
 
     return jsonify(hues=hues, my_hues=my_hues)
+
+
+
+
+@app.route('/login')
+def login():
+    callback = url_for(
+        'facebook_authorized',
+        next=request.args.get('next') or request.referrer or None,
+        _external=True
+    )
+    return facebook.authorize(callback=callback)
+
+
+@app.route('/login/authorized')
+def facebook_authorized():
+    resp = facebook.authorized_response()
+    if resp is None:
+        return 'Access denied: reason=%s error=%s' % (
+            request.args['error_reason'],
+            request.args['error_description']
+        ), 500
+    if isinstance(resp, OAuthException):
+        return 'Access denied: %s' % resp.message, 500
+
+    session['oauth_token'] = (resp['access_token'], '')
+    me = facebook.get('/me')
+    next = request.args.get('next')
+    return redirect(next if next else url_for('test'))
+    return 'Logged in as id=%s name=%s redirect=%s' % \
+        (me.data['id'], me.data['name'], request.args.get('next'))
+
+
+@facebook.tokengetter
+def get_facebook_oauth_token():
+    return session.get('oauth_token')
 
 
 if __name__ == '__main__':

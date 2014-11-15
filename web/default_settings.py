@@ -1,5 +1,9 @@
 DEBUG = False
 
+FACEBOOK_APP_ID = ""
+FACEBOOK_APP_SECRET = ""
+
+
 DATABASE = {
     'engine': 'Postgresql',
     'name': 'iseehue',

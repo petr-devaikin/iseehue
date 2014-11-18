@@ -19,6 +19,10 @@ class Hue(Model):
 
 class User(Model):
     external_id = CharField()
+    name = CharField(null=True)
+
+    def tested(self):
+        return self.answers.count() > 0
 
     class Meta:
         database = get_db()

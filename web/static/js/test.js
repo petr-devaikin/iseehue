@@ -64,8 +64,8 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
                     .transition()
                     .duration(settings.fadePeriod)
                     .style('opacity', 0)
-                    .each("end", function(e) {
-                        e.remove();
+                    .each("end", function() {
+                        this.remove();
                     });
             dom.test.letsStart
                     .interrupt()
@@ -81,11 +81,11 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
             onBaseSelected = function() {
                 dom.test.baseColor.classed('afterSelect', true);
                 dom.test.nextColor.classed('afterSelect', true);
-                dom.test.nextColor
+                /*dom.test.nextColor
                     .interrupt()
                     .transition()
                     .duration(settings.fadePeriod)
-                    .style('opacity', settings.fadeOpacity);
+                    .style('opacity', settings.fadeOpacity);*/
                 showLetsStart();
                 clearEventHandlers();
             }
@@ -93,11 +93,11 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
             onNextSelected = function() {
                 dom.test.baseColor.classed('afterSelect', true);
                 dom.test.nextColor.classed('afterSelect', true);
-                dom.test.baseColor
+                /*dom.test.baseColor
                     .interrupt()
                     .transition()
                     .duration(settings.fadePeriod)
-                    .style('opacity', settings.fadeOpacity);
+                    .style('opacity', settings.fadeOpacity);*/
                 showLetsStart();
                 clearEventHandlers();
             }

@@ -7,6 +7,8 @@ define(['settings', 'color'], function(settings, color) {
         this.maxId = nextHue.id;
         this.maxName = nextHue.name;
         this.maxHue = nextHue.value;
+        if (this.maxHue < this.minHue)
+            this.maxHue += 360;
 
         this.minBorder = this.minHue;
         this.maxBorder = this.maxHue;

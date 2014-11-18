@@ -11,8 +11,6 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('web.default_settings')
 app.config.from_pyfile('application.cfg', silent=True)
 
-app.secret_key = 'development'
-
 Scss(app)
 oauth = OAuth(app)
 
@@ -33,21 +31,41 @@ facebook = oauth.remote_app(
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    try:
+        user = get_user()
+    except User.DoesNotExist:
+        return redirect(url_for('logout'))
+
+    return render_template('index.html', user=user)
 
 
 @app.route('/test')
 def test():
+    try:
+        user = get_user()
+    except User.DoesNotExist:
+        return redirect(url_for('logout'))
+
+    if not user:
+        return redirect(url_for('login'), next=request.path)
+
+    if user.tested():
+        return redirect(url_for('index'))
+
     hues = json.dumps([h.to_hash() for h in Hue.select()])
     return render_template('test.html', hues=hues)
 
 
 @app.route('/results/save', methods=['POST'])
 def save_results():
-    #check if results already exist
+    user = get_user()
+    if not user:
+        return 'not logged id', 500
 
-    results = json.loads(request.form.get('borders'))
-    user = User.create(external_id='a')
+    if user.tested():
+        return 'test already passed', 500
+
+    results = json.loads(request.form.get('borders'))    
 
     hue_count = Hue.select().count()
     if len(results) < hue_count:
@@ -70,7 +88,7 @@ def save_results():
 
 @app.route('/results/')
 def results():
-    user = User.get()
+    user = get_user()
 
     hues = []
     my_hues = []
@@ -80,10 +98,11 @@ def results():
             'hue': hue.to_hash(),
             'answers': answers
         })
-        my_hues.append({
-            'hue': hue.to_hash(),
-            'answers': [user.answers.join(Hue).where(Hue.id == hue.id)[0].to_hash()]
-        })
+        if user:
+            my_hues.append({
+                'hue': hue.to_hash(),
+                'answers': [user.answers.join(Hue).where(Hue.id == hue.id)[0].to_hash()]
+            })
 
     return jsonify(hues=hues, my_hues=my_hues)
 
@@ -100,6 +119,11 @@ def login():
     return facebook.authorize(callback=callback)
 
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
 @app.route('/login/authorized')
 def facebook_authorized():
     resp = facebook.authorized_response()
@@ -112,16 +136,31 @@ def facebook_authorized():
         return 'Access denied: %s' % resp.message, 500
 
     session['oauth_token'] = (resp['access_token'], '')
+
     me = facebook.get('/me')
+    try:
+        user = User.get(User.external_id == me.data['id'])
+    except User.DoesNotExist:
+        user = User.create(external_id=me.data['id'], name=me.data['name'])
+    session['user_id'] = user.id
+
+
+    
     next = request.args.get('next')
     return redirect(next if next else url_for('test'))
-    return 'Logged in as id=%s name=%s redirect=%s' % \
-        (me.data['id'], me.data['name'], request.args.get('next'))
 
 
 @facebook.tokengetter
 def get_facebook_oauth_token():
     return session.get('oauth_token')
+
+
+def get_user():
+    user_id = session.get('user_id')
+    if user_id:
+        return User.get(User.id == user_id)
+    else:
+        return None
 
 
 if __name__ == '__main__':

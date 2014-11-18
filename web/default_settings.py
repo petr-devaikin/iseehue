@@ -1,5 +1,7 @@
 DEBUG = False
 
+SECRET_KEY = 'development'
+
 FACEBOOK_APP_ID = ""
 FACEBOOK_APP_SECRET = ""
 

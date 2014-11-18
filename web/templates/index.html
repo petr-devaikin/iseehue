@@ -16,5 +16,14 @@
         <g id="chords"></g>
         <g id="palette"></g>
     </svg>
-    <a href="{{ url_for('test') }}">Start test</a>
+    {% if user %}
+        Hello, {{ user.name }}!<br />
+        {% if user.tested %}
+            <a href="{{ url_for('test') }}">Start test</a>
+            <br />
+        {% endif %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login via Facebook</a> to know your results
+    {% endif %}
 {% endblock %}

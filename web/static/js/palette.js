@@ -17,6 +17,7 @@ define(['color_border', 'settings'], function(ColorBorder, settings) {
                     this.cursor = 0;
                 }
                 notDone[this.cursor].reverse();
+                console.log(this.cursor);
                 return notDone[this.cursor++];
             }
             else

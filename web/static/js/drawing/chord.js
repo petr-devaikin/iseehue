@@ -29,11 +29,8 @@ define(['dom', 'color', 'settings', 'lib/d3'], function(dom, color, settings, d3
         }
     }
 
-    function drawArcs(x, y, radius, data, isMine) {
+    function drawArcs(x, y, radius, data, isMine, opacity) {
         for (var i = 0; i < data.length; i++) {
-            var opacity = settings.chordMinOpacity +
-                (settings.chordMaxOpacity - settings.chordMinOpacity) / data[i].answers.length;
-            if (isMine) opacity = 1;
 
             var hue = data[i].hue,
                 answers = data[i].answers,
@@ -57,7 +54,16 @@ define(['dom', 'color', 'settings', 'lib/d3'], function(dom, color, settings, d3
 
         drawCircle(200, 200, radius);
 
-        drawArcs(200, 200, 180, data, false);
-        drawArcs(200, 200, 180, my_data, true);
+        if (data.length > 0) {
+            var opacity = settings.chordMinOpacity +
+                (settings.chordMaxOpacity - settings.chordMinOpacity) / data[0].answers.length;
+            if (my_data.length > 0) {
+                drawArcs(200, 200, 180, data, false, opacity / 2);
+                drawArcs(200, 200, 180, my_data, true, settings.myChordOpacity);
+            }
+            else {
+                drawArcs(200, 200, 180, data, false, opacity);
+            }
+        }
     }
 });

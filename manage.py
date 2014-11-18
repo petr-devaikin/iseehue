@@ -27,5 +27,25 @@ def initdb():
     scripts.init_database()
 
 
+@manager.command
+def generator():
+    """
+    Generate test data
+    """
+    from web.db.models import User, UserAnswer, Hue
+    import random
+    hues = Hue.select()
+    count = hues.count()
+    for i in range(10):
+        user = User.create(external_id='test_%d' % i, name="Test Name %d" % i)
+        borders = [random.uniform(hue.value, hue.value + 360./count) for hue in hues]
+        for i in range(count):
+            answer = UserAnswer.create(
+                user=user,
+                hue=hues[i],
+                left_border=borders[(i - 1) % count],
+                right_border=borders[i])
+
+
 if __name__ == "__main__":
     manager.run()

@@ -36,7 +36,9 @@ def index():
     except User.DoesNotExist:
         return redirect(url_for('logout'))
 
-    return render_template('index.html', user=user)
+    tested = user and user.tested()
+
+    return render_template('index.html', user=user, tested=tested)
 
 
 @app.route('/test')
@@ -98,7 +100,7 @@ def results():
             'hue': hue.to_hash(),
             'answers': answers
         })
-        if user:
+        if user and user.tested():
             my_hues.append({
                 'hue': hue.to_hash(),
                 'answers': [user.answers.join(Hue).where(Hue.id == hue.id)[0].to_hash()]

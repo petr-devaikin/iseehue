@@ -6,11 +6,9 @@ svg #palette path {
 svg #chords path {
     fill: none;
     stroke-width: 0.3;
-    opacity: 0.5;
 }
 
 svg #chords path.mine {
     fill: none;
     stroke-width: 1.5;
-    opacity: 0.7;
 }

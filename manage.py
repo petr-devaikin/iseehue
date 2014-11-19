@@ -36,9 +36,9 @@ def generator():
     import random
     hues = Hue.select()
     count = hues.count()
-    for i in range(10):
+    for i in range(20):
         user = User.create(external_id='test_%d' % i, name="Test Name %d" % i)
-        borders = [random.uniform(hue.value, hue.value + 360./count) for hue in hues]
+        borders = [random.gauss(hue.value + 180./count, 10) for hue in hues]
         for i in range(count):
             answer = UserAnswer.create(
                 user=user,

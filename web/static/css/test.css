@@ -22,7 +22,7 @@
       position: absolute; }
       .testCase .colorContainer .huePanel {
         box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.2s ease-out 0s; }
+        transition: all 0.2s ease-out 0s; }
         .testCase .colorContainer#sampleContainer {
           left: 50%;
           margin-left: -60px;
@@ -85,12 +85,17 @@
 #letsStart {
   text-align: center;
   margin-top: 45px; }
+  #letsStart button {
+    background: #51B54E;
+    color: white; }
+    #letsStart button:hover {
+      background: #4E9B4C; }
 
-  #caseTitle {
-    font-style: italic;
-    margin-top: 2em;
-    font-size: 20px;
-    text-align: center; }
+#caseTitle {
+  font-style: italic;
+  margin-top: 2em;
+  font-size: 20px;
+  text-align: center; }
 
-    .tutorial.hidden {
-      visibility: hidden; }
+  .tutorial.hidden {
+    visibility: hidden; }

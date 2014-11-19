@@ -40,7 +40,7 @@ $hoveredShadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 
         .huePanel {
             box-shadow: $commonShadow;
-            transition: box-shadow 0.2s ease-out 0s;
+            transition: all 0.2s ease-out 0s;
         }
 
         &#sampleContainer {
@@ -137,6 +137,15 @@ $hoveredShadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 #letsStart {
     text-align: center;
     margin-top: 45px;
+
+    button {
+        background: #51B54E;
+        color: white;
+
+        &:hover {
+            background: #4E9B4C;
+        }
+    }
 }
 
 #caseTitle {

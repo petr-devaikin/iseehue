@@ -33,6 +33,24 @@ h1 {
           color: #83806F; }
           #chordContainer #buttons .toggle.active span {
             border-bottom: none; }
+    #chordContainer #doTestNotification {
+      text-align: left;
+      position: absolute;
+      right: 0px;
+      top: 50%;
+      width: 115px;
+      font-size: 16px;
+      margin-top: -65px;
+      background: #EAE8E5;
+      padding: 0.5em 1em; }
+      #chordContainer #doTestNotification .button {
+        margin: 10px 0 0;
+        font-size: 16px;
+        background: #51B54E;
+        color: white;
+        display: block; }
+        #chordContainer #doTestNotification .button:hover {
+          background: #4E9B4C; }
 
 svg {
   margin: 10px 0 50px;

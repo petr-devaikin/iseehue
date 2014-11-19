@@ -36,7 +36,48 @@ def index():
     except User.DoesNotExist:
         return redirect(url_for('logout'))
 
-    return render_template('index.html', user=user)
+    tested = user and user.tested()
+
+    hues = []
+    my_hues = []
+    for hue in Hue.select():
+        answers = [answer.to_hash() for answer in hue.user_answers]
+        hues.append({
+            'hue': hue.to_hash(),
+            'answers': answers
+        })
+        if tested:
+            my_hues.append({
+                'hue': hue.to_hash(),
+                'answers': [user.answers.join(Hue).where(Hue.id == hue.id)[0].to_hash()]
+            })
+
+    max_diff = app.config['MAX_DIFF']
+    mutual = 0
+    if tested:
+        ids = None
+        for hue in Hue.select():            
+            if ids != None:
+                print 'Condition'
+                users = User.select().join(UserAnswer).where(User.id << ids)
+            else:
+                users = User.select().join(UserAnswer)
+
+            right_border = user.answers.where(UserAnswer.hue == hue).first().right_border
+
+            users = users.where(UserAnswer.hue == hue)
+            users = users.where((UserAnswer.right_border >= right_border - max_diff) & \
+                                (UserAnswer.right_border <= right_border + max_diff))
+            
+            ids = [u.id for u in users]
+
+        tested_count = Hue.select().first().user_answers.count() - 1
+        overlaps = 100 * float(len(ids) - 1) / tested_count
+        mutual = round(overlaps, 2) if overlaps < 1 else int(round(overlaps))
+    
+
+    return render_template('index.html', user=user, tested=tested, mutual=mutual,
+        hues=json.dumps(hues), my_hues=json.dumps(my_hues))
 
 
 @app.route('/test')
@@ -84,29 +125,6 @@ def save_results():
         return 'duplicate result', 500
 
     return jsonify(result='ok')
-
-
-@app.route('/results/')
-def results():
-    user = get_user()
-
-    hues = []
-    my_hues = []
-    for hue in Hue.select():
-        answers = [answer.to_hash() for answer in hue.user_answers]
-        hues.append({
-            'hue': hue.to_hash(),
-            'answers': answers
-        })
-        if user and user.tested():
-            my_hues.append({
-                'hue': hue.to_hash(),
-                'answers': [user.answers.join(Hue).where(Hue.id == hue.id)[0].to_hash()]
-            })
-
-    return jsonify(hues=hues, my_hues=my_hues)
-
-
 
 
 @app.route('/login')

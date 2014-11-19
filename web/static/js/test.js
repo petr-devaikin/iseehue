@@ -25,30 +25,44 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
         }
 
         function loadNewTestCase() {
-            if ((colorBorder = palette.getNextColor()) === undefined) {
-                http.sendResults(palette, function(responce) {
-                    window.location = settings.indexUrl;
-                });
-            }
-            else
-                updateTestCase();
+            window.setTimeout(function() {
+                if ((colorBorder = palette.getNextColor()) === undefined) {
+                    http.sendResults(palette, function(responce) {
+                        window.location = settings.indexUrl;
+                    });
+                }
+                else {
+                        updateTestCase();
+                        dom.test.baseColor.style('transform', 'scale(1,1)');
+                        dom.test.nextColor.style('transform', 'scale(1,1)');
+                        setEventHandlers(true);
+                }
+            }, settings.testDelay);
         }
 
         var onBaseSelected,
             onNextSelected;
 
-        function setRealEventHandlers() {
+        function setEventHandlers(real) {
             onBaseSelected = function() {
                 if (colorBorder !== undefined) {
                     colorBorder.updateMinBorder();
-                    loadNewTestCase();
+                    selectBase();
+                    if (real)
+                        loadNewTestCase();
+                    else
+                        showLetsStart();
                 }
             }
 
             onNextSelected = function() {
                 if (colorBorder !== undefined) {
                     colorBorder.updateMaxBorder();
-                    loadNewTestCase();
+                    selectNext();
+                    if (real)
+                        loadNewTestCase();
+                    else
+                        showLetsStart();
                 }
             }
         }
@@ -77,33 +91,21 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
             dom.test.hideIntroductionButton.focus();
         }
 
-        function setExampleEventHandlers() {
-            onBaseSelected = function() {
-                dom.test.baseColor.classed('afterSelect', true);
-                dom.test.nextColor.classed('afterSelect', true);
-                /*dom.test.nextColor
-                    .interrupt()
-                    .transition()
-                    .duration(settings.fadePeriod)
-                    .style('opacity', settings.fadeOpacity);*/
-                showLetsStart();
-                clearEventHandlers();
-            }
-
-            onNextSelected = function() {
-                dom.test.baseColor.classed('afterSelect', true);
-                dom.test.nextColor.classed('afterSelect', true);
-                /*dom.test.baseColor
-                    .interrupt()
-                    .transition()
-                    .duration(settings.fadePeriod)
-                    .style('opacity', settings.fadeOpacity);*/
-                showLetsStart();
-                clearEventHandlers();
-            }
+        function selectBase() {
+            dom.test.baseColor.classed('afterSelect', true);
+            dom.test.nextColor.classed('afterSelect', true);
+            dom.test.baseColor.style('transform', 'scale(1.2,1.2)');
+            clearEventHandlers();
         }
 
-        function addTestEventHandlers() {
+        function selectNext() {
+            dom.test.baseColor.classed('afterSelect', true);
+            dom.test.nextColor.classed('afterSelect', true);
+            dom.test.nextColor.style('transform', 'scale(1.2,1.2)');
+            clearEventHandlers();
+        }
+
+        function setInteractionHandlers() {
             dom.test.baseColor.on('click', function() { onBaseSelected(); });
             dom.test.nextColor.on('click', function() { onNextSelected(); });
 
@@ -121,8 +123,6 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
             dom.test.hideIntroductionButton.onclick = function() {
                 hideIntroduction();
                 loadNewTestCase();
-
-                setRealEventHandlers(colorBorder);
             }
         }
 
@@ -131,8 +131,8 @@ define(['color', 'settings', 'palette', 'dom', 'http', 'color_border'],
                 palette = new Palette(settings.hues);
                 loadExample();
 
-                setExampleEventHandlers();
-                addTestEventHandlers();
+                setEventHandlers();
+                setInteractionHandlers();
 
                 addIntroductionHandlers();
             }

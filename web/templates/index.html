@@ -5,15 +5,27 @@
 {% endblock %}
 
 {% block script %}
-    requirejs(['main', 'settings'], function(main, settings) {
-        settings.loadResultUrl = "{{ url_for('results') }}";
-        main();
+    requirejs(['drawing/chord'], function(drawingChord) {
+        var hues = {{ hues | safe }};
+        var my_hues = {{ my_hues | safe }};
+        drawingChord(hues, my_hues);
     });
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>How People Perceive Hues</h1>
+        <h1>
+            {% if user and tested %}
+                {% if mutual > 0 %}
+                    {{ mutual }}% of people
+                {% else %}
+                    Nobody
+                {% endif %}
+                percive hues like you
+            {% else %}
+                How People Perceive Hues
+            {% endif %}
+        </h1>
 
         <div id="chordContainer">
             <svg id="results">
@@ -24,29 +36,30 @@
                 <g id="palette"></g>
             </svg>
 
-            {% if user and user.tested() %}
-                <div id="buttons">
-                    <div class="toggle" id="allButton">
-                        <span>All people</span>
+            {% if user %}
+                {% if tested %}
+                    <div id="buttons">
+                        <div class="toggle" id="allButton">
+                            <span>All people</span>
+                        </div>
+                        <div class="toggle active" id="mineButton">
+                            <span>Your results</span>
+                        </div>
                     </div>
-                    <div class="toggle active" id="mineButton">
-                        <span>Your results</span>
+                {% else %}
+                    <div id="doTestNotification">
+                        You have not passed the test yet.
+                        <a href="{{ url_for('test') }}" class="button" id="startButton">Start it</a>
                     </div>
-                </div>
+                {% endif %}
             {% endif %}
         </div>
 
         {% if user %}
             <p>
                 You are logged in as <em>{{ user.name }}</em>.
-                <a href="{{ url_for('logout') }}" id="logout" class="button">Logout</a>
+                <a href="{{ url_for('logout') }}" id="logout" class="button">Log out</a>
             </p>
-            
-            {% if not user.tested() %}
-                <p>
-                    You have not passed the test yet. <a href="{{ url_for('test') }}">Start it</a>
-                </p>
-            {% endif %}
         {% else %}
             <p>
                 <a href="{{ url_for('login') }}" id="login" class="button">Log in via Facebook</a> to know your results.

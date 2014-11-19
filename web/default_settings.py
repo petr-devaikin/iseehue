@@ -1,5 +1,7 @@
 DEBUG = False
 
+MAX_DIFF = 10
+
 SECRET_KEY = 'development'
 
 FACEBOOK_APP_ID = ""

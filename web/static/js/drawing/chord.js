@@ -51,7 +51,7 @@ define(['dom', 'color', 'settings', 'lib/d3'], function(dom, color, settings, d3
                     .classed(hue_name, true)
                     .attr('stroke', color.getDefaultColor(hue.value, opacity))
                     .attr("d", function(d) {
-                        return arcPath(radius, radius / 2, d.left * Math.PI / radius, d.right * Math.PI / radius)
+                        return arcPath(radius, radius / 2, d.left * Math.PI / 180, d.right * Math.PI / 180)
                     });
         }
     }

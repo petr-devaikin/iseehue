@@ -12,18 +12,45 @@
 {% endblock %}
 
 {% block body %}
-    <svg id="results" width="400" height="400">
-        <g id="chords"></g>
-        <g id="palette"></g>
-    </svg>
-    {% if user %}
-        Hello, {{ user.name }}!<br />
-        {% if tested %}
-            <a href="{{ url_for('test') }}">Start test</a>
-            <br />
+    <div class="container">
+        <h1>How People Perceive Hues</h1>
+
+        <div id="chordContainer">
+            <svg id="results">
+                <g id="chords">
+                    <g id="all"></g>
+                    <g id="mine"></g>
+                </g>
+                <g id="palette"></g>
+            </svg>
+
+            {% if user and user.tested() %}
+                <div id="buttons">
+                    <div class="toggle" id="allButton">
+                        <span>All people</span>
+                    </div>
+                    <div class="toggle active" id="mineButton">
+                        <span>Your results</span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if user %}
+            <p>
+                You are logged in as <em>{{ user.name }}</em>.
+                <a href="{{ url_for('logout') }}" id="logout" class="button">Logout</a>
+            </p>
+            
+            {% if not user.tested() %}
+                <p>
+                    You have not passed the test yet. <a href="{{ url_for('test') }}">Start it</a>
+                </p>
+            {% endif %}
+        {% else %}
+            <p>
+                <a href="{{ url_for('login') }}" id="login" class="button">Log in via Facebook</a> to know your results.
+            </p>
         {% endif %}
-        <a href="{{ url_for('logout') }}">Logout</a>
-    {% else %}
-        <a href="{{ url_for('login') }}">Login via Facebook</a> to know your results
-    {% endif %}
+    </div>
 {% endblock %}

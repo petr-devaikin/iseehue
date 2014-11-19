@@ -1,8 +1,15 @@
 define(['lib/domReady!', 'lib/d3'], function(doc, d3) {
     return {
         svg: {
+            svg: d3.select("#results"),
             palette: d3.select("#results g#palette"), 
-            chords: d3.select("#results g#chords"), 
+            chords: d3.select("#results g#chords"),
+            allChords: d3.select("#results g#chords g#all"),
+            myChords: d3.select("#results g#chords g#mine"),
+        },
+        index: {
+            allButton: d3.select("#allButton"),
+            mineButton: d3.select("#mineButton"),
         },
         test: {
             tutorial: d3.selectAll(".tutorial"),

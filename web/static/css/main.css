@@ -1,15 +1,30 @@
 body {
-    background-color: #efefef;
-    font-family: 'Open Sans', sans-serif;
-    color: #333;
-}
+  background-color: #efefef;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #555;
+  margin: 0; }
 
-button {
+  button, .button {
     font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
-}
+    text-decoration: none;
+    padding: 0.5em 1em;
+    margin: 0 0.5em;
+    transition: background 0.1s ease-out 0s;
+    background: #e7e7e7;
+    border: none;
+    color: #3b5998; }
+    button:hover, .button:hover {
+      background: #ddd; }
 
-p {
-    margin: 0.5em;
-}
+.container {
+  position: relative;
+  min-width: 400px;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto; }
+
+  p {
+    margin: 0.5em; }

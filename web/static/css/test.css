@@ -1,9 +1,5 @@
 .container {
-  position: relative;
-  min-width: 400px;
-  max-width: 760px;
-  height: 550px;
-  margin: 20px auto auto; }
+  margin-top: 20px; }
 
   .testCase {
     position: relative;

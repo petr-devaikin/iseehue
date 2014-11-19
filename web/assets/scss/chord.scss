@@ -1,0 +1,94 @@
+$toggle-color: #999CA6;
+
+h1 {
+    font-weight: normal;
+    font-size: 30px;
+    margin: 0.67em 0;
+    text-align: center;
+}
+
+#chordContainer {
+    text-align: center;
+    position: relative;
+
+    #buttons {
+        position: absolute;
+        right: 0px;
+        top: 50%;
+        margin-top: -50px;
+
+        .toggle {
+            text-align: left;
+            padding: 0.5em 1em;
+            margin: 0.5em 0;
+            transition: all 0.1s ease-out 0s;
+
+            &:not(.active) {
+                cursor: pointer;
+                background: none;
+                color: $toggle-color;
+                border-left: 3px solid #efefef;
+
+                span {
+                    border-bottom: 1px dashed $toggle-color;
+                }
+
+                &:hover {
+                    background: #ECEBEB;
+                    border-left: 3px solid $toggle-color;
+                }
+            }
+
+            &.active {
+                border-left: 3px solid #83806F;
+                background: #EAE8E5;
+                color: #83806F;
+                span {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+}
+
+svg {
+    margin: 10px 0 50px;
+    height: 400px;
+
+    #palette path {
+        fill: none;
+    }
+
+    #chords {
+        #all {
+            transition: opacity 0.2s ease-out 0s;
+            path {
+                fill: none;
+                stroke-width: 0.3;
+            }
+        }
+
+        #mine {
+            transition: opacity 0.2s ease-out 0s;
+
+            path {
+                fill: none;
+                stroke-width: 1.5;
+            }
+        }
+    }
+}
+
+#login {
+    background: rgb(59, 89, 152);
+    color: #fff;
+    transition: background 0.1s ease-out 0s;
+
+    &:hover {
+        background: rgb(19, 55, 131);
+    }
+}
+
+p {
+    text-align: center;
+}

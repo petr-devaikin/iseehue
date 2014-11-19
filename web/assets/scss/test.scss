@@ -3,9 +3,6 @@ $basicDiameter: 100px;
 $basicTop: 150px;
 $descriptionColor: #bbb;
 
-$textMinWidth: 400px;
-$textMaxWidth: 760px;
-
 $arrowOpacity: 0.6;
 $hintWidth: 200px;
 
@@ -13,11 +10,7 @@ $commonShadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
 $hoveredShadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
 
 .container {
-    position: relative;
-    min-width: $textMinWidth;
-    max-width: $textMaxWidth;
-    height: 550px;
-    margin: 20px auto auto;
+    margin-top: 20px;
 }
 
 .testCase {

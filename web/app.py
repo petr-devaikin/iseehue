@@ -36,9 +36,7 @@ def index():
     except User.DoesNotExist:
         return redirect(url_for('logout'))
 
-    tested = user and user.tested()
-
-    return render_template('index.html', user=user, tested=tested)
+    return render_template('index.html', user=user)
 
 
 @app.route('/test')

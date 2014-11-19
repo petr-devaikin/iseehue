@@ -6,7 +6,9 @@ define({
     chordMaxOpacity: 1,
     chordMinOpacity: 0.5,
     myChordOpacity: 0.9,
+    allChorsOpacity: 0.5,
     accuracy: 64,
     hueWidth: 360 / 6,
-    radius: 60,
+    circleRadius: 197,
+    circleWidth: 3
 });

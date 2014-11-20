@@ -3,12 +3,14 @@ from flask.ext.scss import Scss
 from flask_oauthlib.client import OAuth, OAuthException
 from .db.engine import init_db, get_db
 from .db.models import Hue, User, UserAnswer
+from .env_settings import load_env
 import json
 import peewee
 
 
 app = Flask(__name__, instance_relative_config=True)
 app.config.from_object('web.default_settings')
+load_env(app)
 app.config.from_pyfile('application.cfg', silent=True)
 
 Scss(app)

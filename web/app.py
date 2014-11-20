@@ -71,7 +71,7 @@ def index():
     if tested:
         my_answers.append({
             'user': my_user.id,
-            'answers': [answer.to_hash() for answer in user.answers]
+            'answers': [answer.to_hash() for answer in my_user.answers]
         })
 
     tested_count = Hue.select().first().user_answers.count() - 1

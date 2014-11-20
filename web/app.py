@@ -77,7 +77,7 @@ def index():
 
     similar_count = calcSimilarAnswers(my_user, app.config['MAX_DIFF']) if tested else 0
 
-    overlaps = 100 * float(similar_count) / tested_count
+    overlaps = 100 * float(similar_count) / tested_count if tested_count else 0
     mutual = round(overlaps, 2) if overlaps < 1 else int(round(overlaps))
 
     return render_template('index.html', user=my_user, tested=tested, mutual=mutual,

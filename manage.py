@@ -5,7 +5,6 @@ from web.db import scripts
 
 manager = Manager(app)
 
-
 @manager.command
 def hello():
     """

@@ -1,4 +1,4 @@
-define(['lib/qwest', 'settings'], function(qwest, settings) {
+define(['libs/qwest', 'settings'], function(qwest, settings) {
     return {
         sendResults: function(palette, callback) {
             var borders = [];

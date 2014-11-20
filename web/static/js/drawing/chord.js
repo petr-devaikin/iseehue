@@ -1,4 +1,4 @@
-define(['dom', 'color', 'settings', 'lib/d3'], function(dom, color, settings, d3) {
+define(['dom', 'color', 'settings', 'libs/d3'], function(dom, color, settings, d3) {
     function angleToCoords(r, angle) {
         return {
             x: r * Math.sin(angle),

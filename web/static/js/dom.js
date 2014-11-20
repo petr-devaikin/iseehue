@@ -1,4 +1,4 @@
-define(['lib/domReady!', 'lib/d3'], function(doc, d3) {
+define(['libs/domReady!', 'libs/d3'], function(doc, d3) {
     return {
         svg: {
             svg: d3.select("#results"),

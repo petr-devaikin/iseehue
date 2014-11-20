@@ -29,55 +29,59 @@ facebook = oauth.remote_app(
 )
 
 
+def calcSimilarAnswers(my_user, max_diff):
+    ids = None
+    for hue in Hue.select():            
+        if ids != None:
+            print 'Condition'
+            users = User.select().join(UserAnswer).where(User.id << ids)
+        else:
+            users = User.select().join(UserAnswer)
+
+        right_border = my_user.answers.where(UserAnswer.hue == hue).first().right_border
+
+        users = users.where(UserAnswer.hue == hue)
+        users = users.where((UserAnswer.right_border >= right_border - max_diff) & \
+                            (UserAnswer.right_border <= right_border + max_diff))
+        
+        ids = [u.id for u in users]
+
+    return len(ids) - 1 if ids else 0
+
+
 @app.route('/')
 def index():
     try:
-        user = get_user()
+        my_user = get_user()
     except User.DoesNotExist:
         return redirect(url_for('logout'))
 
-    tested = user and user.tested()
+    tested = my_user and my_user.tested()
 
-    hues = []
-    my_hues = []
-    for hue in Hue.select():
-        answers = [answer.to_hash() for answer in hue.user_answers]
-        hues.append({
-            'hue': hue.to_hash(),
-            'answers': answers
-        })
-        if tested:
-            my_hues.append({
-                'hue': hue.to_hash(),
-                'answers': [user.answers.join(Hue).where(Hue.id == hue.id)[0].to_hash()]
+    answers = []
+    my_answers = []
+    for user in User.select():
+        if user.tested():
+            answers.append({
+                'user': user.id,
+                'answers': [answer.to_hash() for answer in user.answers]
             })
 
-    max_diff = app.config['MAX_DIFF']
-    tested_count = Hue.select().first().user_answers.count() - 1
-    mutual = 0
     if tested:
-        ids = None
-        for hue in Hue.select():            
-            if ids != None:
-                print 'Condition'
-                users = User.select().join(UserAnswer).where(User.id << ids)
-            else:
-                users = User.select().join(UserAnswer)
+        my_answers.append({
+            'user': my_user.id,
+            'answers': [answer.to_hash() for answer in user.answers]
+        })
 
-            right_border = user.answers.where(UserAnswer.hue == hue).first().right_border
+    tested_count = Hue.select().first().user_answers.count() - 1
 
-            users = users.where(UserAnswer.hue == hue)
-            users = users.where((UserAnswer.right_border >= right_border - max_diff) & \
-                                (UserAnswer.right_border <= right_border + max_diff))
-            
-            ids = [u.id for u in users]
+    similar_count = calcSimilarAnswers(my_user, app.config['MAX_DIFF']) if tested else 0
 
-        overlaps = 100 * float(len(ids) - 1) / tested_count
-        mutual = round(overlaps, 2) if overlaps < 1 else int(round(overlaps))
-    
+    overlaps = 100 * float(similar_count) / tested_count
+    mutual = round(overlaps, 2) if overlaps < 1 else int(round(overlaps))
 
-    return render_template('index.html', user=user, tested=tested, mutual=mutual,
-        hues=json.dumps(hues), my_hues=json.dumps(my_hues), polled_count=tested_count)
+    return render_template('index.html', user=my_user, tested=tested, mutual=mutual,
+        answers=json.dumps(answers), my_answers=json.dumps(my_answers), polled_count=tested_count)
 
 
 @app.route('/test')

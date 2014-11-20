@@ -95,7 +95,7 @@ svg {
     #chords {
         #all {
             transition: opacity 0.2s ease-out 0s;
-            path {
+            g {
                 fill: none;
                 stroke-width: 0.3;
             }
@@ -104,7 +104,7 @@ svg {
         #mine {
             transition: opacity 0.2s ease-out 0s;
 
-            path {
+            g {
                 fill: none;
                 stroke-width: 1.5;
             }

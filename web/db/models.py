@@ -39,6 +39,7 @@ class UserAnswer(Model):
             'id': self.id,
             'left': self.left_border,
             'right': self.right_border,
+            'hue': self.hue.value,
         }
 
     class Meta:

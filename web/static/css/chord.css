@@ -66,12 +66,12 @@ svg {
     fill: none; }
     svg #chords #all {
       transition: opacity 0.2s ease-out 0s; }
-      svg #chords #all path {
+      svg #chords #all g {
         fill: none;
         stroke-width: 0.3; }
     svg #chords #mine {
       transition: opacity 0.2s ease-out 0s; }
-      svg #chords #mine path {
+      svg #chords #mine g {
         fill: none;
         stroke-width: 1.5; }
 

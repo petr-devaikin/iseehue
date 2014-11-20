@@ -28,32 +28,31 @@ define(['dom', 'color', 'settings', 'lib/d3'], function(dom, color, settings, d3
         }
     }
 
-    function drawArcs(radius, data, isMine) {
+    function drawUserAnswers(answers, isMine, usersCount) {
+        var radius = settings.circleRadius;
         var opacity, container;
+
         if (!isMine) {
             container = dom.svg.allChords;
             opacity = settings.chordMinOpacity +
-                (settings.chordMaxOpacity - settings.chordMinOpacity) / data[0].answers.length;
+                (settings.chordMaxOpacity - settings.chordMinOpacity) / usersCount;
         }
         else {
             container = dom.svg.myChords;
             opacity = 1;
         }
 
-        for (var i = 0; i < data.length; i++) {
-            var hue = data[i].hue,
-                answers = data[i].answers,
-                hue_name = hue.name.replace(" ", "_");
-            container
-                .selectAll("path." + hue_name)
-                    .data(answers)
+        container
+            .selectAll('g')
+                .data(answers)
+            .enter().append('g')
+                .selectAll("path")
+                    .data(function(u) { return u.answers })
                 .enter().append("path")
-                    .classed(hue_name, true)
-                    .attr('stroke', color.getDefaultColor(hue.value, opacity))
+                    .attr('stroke', function(d) { return color.getDefaultColor(d.hue, opacity); })
                     .attr("d", function(d) {
                         return arcPath(radius, radius / 2, d.left * Math.PI / 180, d.right * Math.PI / 180)
                     });
-        }
     }
 
     function showAllPeople() {
@@ -80,8 +79,7 @@ define(['dom', 'color', 'settings', 'lib/d3'], function(dom, color, settings, d3
     }
 
     return function(data, my_data) {
-        var radius = settings.circleRadius,
-            cx = settings.circleRadius + settings.circleWidth,
+        var cx = settings.circleRadius + settings.circleWidth,
             cy = settings.circleRadius + settings.circleWidth;
 
         dom.svg.svg.style("width", 2 * cx);
@@ -91,12 +89,13 @@ define(['dom', 'color', 'settings', 'lib/d3'], function(dom, color, settings, d3
             .style('stroke-width', settings.circleWidth);
         dom.svg.chords.attr("transform", "translate("+cx+","+cy+")");
 
-        drawCircle(radius);
+        drawCircle(settings.circleRadius);
 
         if (data.length > 0) {
-            drawArcs(radius, data, false);
+            drawUserAnswers(data, false, data.length);
+
             if (my_data.length > 0) {
-                drawArcs(radius, my_data, true);
+                drawUserAnswers(my_data, true);
                 showMyResults();
             }
             else {

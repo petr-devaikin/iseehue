@@ -6,9 +6,9 @@
 
 {% block script %}
     requirejs(['drawing/chord'], function(drawingChord) {
-        var hues = {{ hues | safe }};
-        var my_hues = {{ my_hues | safe }};
-        drawingChord(hues, my_hues);
+        var answers = {{ answers | safe }};
+        var my_answers = {{ my_answers | safe }};
+        drawingChord(answers, my_answers);
     });
 {% endblock %}
 

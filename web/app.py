@@ -35,7 +35,6 @@ def calcSimilarAnswers(my_user, max_diff):
     ids = None
     for hue in Hue.select():            
         if ids != None:
-            print 'Condition'
             users = User.select().join(UserAnswer).where(User.id << ids)
         else:
             users = User.select().join(UserAnswer)

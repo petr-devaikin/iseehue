@@ -83,7 +83,7 @@ def index():
     mutual = round(overlaps, 2) if overlaps < 1 else int(round(overlaps))
 
     return render_template('index.html', user=my_user, tested=tested, mutual=mutual,
-        answers=json.dumps(answers), my_answers=json.dumps(my_answers), polled_count=tested_count)
+        answers=json.dumps(answers), my_answers=json.dumps(my_answers), polled_count=tested_count+1)
 
 
 @app.route('/test')

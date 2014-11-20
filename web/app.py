@@ -53,6 +53,7 @@ def index():
             })
 
     max_diff = app.config['MAX_DIFF']
+    tested_count = Hue.select().first().user_answers.count() - 1
     mutual = 0
     if tested:
         ids = None
@@ -71,13 +72,12 @@ def index():
             
             ids = [u.id for u in users]
 
-        tested_count = Hue.select().first().user_answers.count() - 1
         overlaps = 100 * float(len(ids) - 1) / tested_count
         mutual = round(overlaps, 2) if overlaps < 1 else int(round(overlaps))
     
 
     return render_template('index.html', user=user, tested=tested, mutual=mutual,
-        hues=json.dumps(hues), my_hues=json.dumps(my_hues))
+        hues=json.dumps(hues), my_hues=json.dumps(my_hues), polled_count=tested_count)
 
 
 @app.route('/test')

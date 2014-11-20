@@ -11,7 +11,7 @@ body {
     font-family: $font-family;
     font-size: $font-size;
     color: $color;
-    margin: 0;
+    margin: 0 0 40px 0;
 }
 
 button, .button {
@@ -43,4 +43,16 @@ button, .button {
 
 p {
     margin: 0.5em;
+}
+
+#disclaimer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    color: #B8B8B8;
+    font-size: 12px;
+    padding-bottom: 2px;
+    background: linear-gradient(to top, $background, rgba(255, 255, 255, 0));
 }

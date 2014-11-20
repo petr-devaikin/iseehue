@@ -10,17 +10,19 @@ h1 {
 #chordContainer {
     text-align: center;
     position: relative;
+    margin: 10px 0 50px;
 
     #buttons {
         position: absolute;
         right: 0px;
         top: 50%;
-        margin-top: -50px;
+        margin-top: -42px;
+        width: 130px;
 
         .toggle {
             text-align: left;
             padding: 0.5em 1em;
-            margin: 0.5em 0;
+            margin: 0.5em 0 0;
             transition: all 0.1s ease-out 0s;
 
             &:not(.active) {
@@ -47,6 +49,14 @@ h1 {
                     border-bottom: none;
                 }
             }
+        }
+
+        p {
+            text-align: left;
+            font-size: 12px;
+            margin: 2px 0 0 19px;
+            color: #B8B8B8;
+            font-style: italic;
         }
     }
 
@@ -76,7 +86,6 @@ h1 {
 }
 
 svg {
-    margin: 10px 0 50px;
     height: 400px;
 
     #palette path {

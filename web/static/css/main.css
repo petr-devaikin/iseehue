@@ -3,7 +3,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   color: #555;
-  margin: 0; }
+  margin: 0 0 40px 0; }
 
   button, .button {
     text-align: center;
@@ -29,3 +29,14 @@ body {
 
   p {
     margin: 0.5em; }
+
+    #disclaimer {
+      position: fixed;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      text-align: center;
+      color: #B8B8B8;
+      font-size: 12px;
+      padding-bottom: 2px;
+      background: linear-gradient(to top, #efefef, rgba(255, 255, 255, 0)); }

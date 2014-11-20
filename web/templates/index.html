@@ -14,18 +14,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>
-            {% if user and tested %}
-                {% if mutual > 0 %}
-                    {{ mutual }}% of people
-                {% else %}
-                    Nobody
-                {% endif %}
-                percive hues like you
-            {% else %}
-                How People Perceive Hues
-            {% endif %}
-        </h1>
+        <h1>How People Perceive Hues</h1>
 
         <div id="chordContainer">
             <svg id="results">
@@ -45,6 +34,14 @@
                         <div class="toggle active" id="mineButton">
                             <span>Your results</span>
                         </div>
+                        <p>
+                            {% if mutual > 0 %}
+                                {{ mutual }}% of people percive
+                            {% else %}
+                                Nobody percives
+                            {% endif %}
+                            hues like you
+                        </p>
                     </div>
                 {% else %}
                     <div id="doTestNotification">
@@ -66,4 +63,8 @@
             </p>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block disclaimer %}
+    | {{ polled_count }} people have been polled
 {% endblock %}

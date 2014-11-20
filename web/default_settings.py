@@ -1,4 +1,4 @@
-DEBUG = True
+DEBUG = False
 
 MAX_DIFF = 10
 

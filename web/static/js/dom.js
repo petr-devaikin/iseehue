@@ -13,11 +13,6 @@ define(['libs/domReady!', 'libs/d3'], function(doc, d3) {
             mineButton: d3.select("#mineButton"),
             anotherButton: d3.select("#anotherButton"),
             startTest: d3.select("#doTestNotification"),
-            pngContainer: {
-                img: d3.select('#pngContainer img'),
-                canvas: d3.select('#pngContainer canvas'),
-            },
-            shareImg: d3.select("#shareImg"),
         },
         test: {
             tutorial: d3.selectAll(".tutorial"),

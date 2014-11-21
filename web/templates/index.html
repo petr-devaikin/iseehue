@@ -5,11 +5,6 @@
 
     <meta property="og:title" content="I See Hue" />
     <meta property="og:description" content="Know how people perceive hues." />
-    {% if tested %}
-        <meta property="og:url" content="{{ url_for('index', another_user_id=user.id, _external=True) }}" />
-    {% else %}
-        <meta property="og:url" content="{{ url_for('index', _external=True) }}" />
-    {% endif %}
 {% endblock %}
 
 {% block script %}
@@ -67,14 +62,19 @@
                         {% endif %}
                     </div>
                     {% if tested %}
-                        <p>
-                            {% if mutual > 0 %}
-                                {{ mutual }}% of people perceive
-                            {% else %}
-                                Nobody perceives
-                            {% endif %}
-                            hues like you
-                        </p>
+                        <div id="resultComments">
+                            <p>
+                                {% if mutual > 0 %}
+                                    {{ mutual }}% of people perceive
+                                {% else %}
+                                    Nobody perceives
+                                {% endif %}
+                                hues like you
+
+                            </p>
+                                    
+                            <div class="fb-share-button" data-href="{{ url_for('index', another_user_id=user.id, _external=True) }}" data-layout="button_count"></div>
+                        </div>
                     {% endif %}
                 </div>
             {% endif %}
@@ -91,7 +91,6 @@
             </p>
         {% endif %}
 
-        <!--div class="fb-share-button" data-href="http://iseehue.herokuapp.com/" data-layout="button_count"></div-->
 
         <div id="pngContainer">
             <canvas></canvas>

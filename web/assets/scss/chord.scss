@@ -40,7 +40,7 @@ h1 {
                 span {
                     border-bottom: 1px dashed $toggle-color;
                 }
-                    
+
                 &:hover {
                     background: #ECEBEB;
                     border-left: 3px solid $toggle-color;
@@ -58,14 +58,28 @@ h1 {
             }
         }
 
-        p {
+        #resultComments {
             position: absolute;
             top: 100%;
             text-align: left;
-            font-size: 12px;
-            margin: 2px 0 0 19px;
-            color: #B8B8B8;
-            font-style: italic;
+
+            p {
+                text-align: left;
+                font-size: 12px;
+                margin: 2px 0 0 19px;
+                color: #B8B8B8;
+                font-style: italic;
+            }
+
+            .fb-share-button {
+                margin: 5px 0 0 19px;
+                opacity: 0.1;
+                transition: $transition;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
         }
     }
 }

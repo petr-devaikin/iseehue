@@ -2,6 +2,9 @@
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chord.css') }}">
+
+    <meta property="og:title" content="ISeeHue" />
+    <meta property="og:image" content="" id="shareImg"/>
 {% endblock %}
 
 {% block script %}
@@ -17,13 +20,15 @@
         <h1>How People Perceive Hues</h1>
 
         <div id="chordContainer">
-            <svg id="results">
-                <g id="chords">
-                    <g id="all"></g>
-                    <g id="mine"></g>
-                </g>
-                <g id="palette"></g>
-            </svg>
+            <div id="svgContainer">
+                <svg id="results">
+                    <g id="chords" fill="none">
+                        <g id="all" stroke-width="0.3"></g>
+                        <g id="mine" stroke-width="1.5"></g>
+                    </g>
+                    <g id="palette" fill="none"></g>
+                </svg>
+            </div>
 
             {% if user %}
                 {% if tested %}
@@ -62,6 +67,22 @@
                 <a href="{{ url_for('login') }}" id="login" class="button">Log in via Facebook</a> to know your results.
             </p>
         {% endif %}
+
+        <!--div class="fb-share-button" data-href="http://iseehue.herokuapp.com/" data-layout="button_count"></div-->
+
+        <div id="pngContainer">
+            <canvas></canvas>
+            <img />
+        </div>
+
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=401813086636874&version=v2.0";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
     </div>
 {% endblock %}
 

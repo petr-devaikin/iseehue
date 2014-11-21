@@ -88,28 +88,19 @@ h1 {
 svg {
     height: 400px;
 
-    #palette path {
-        fill: none;
-    }
-
     #chords {
         #all {
             transition: opacity 0.2s ease-out 0s;
-            g {
-                fill: none;
-                stroke-width: 0.3;
-            }
         }
 
         #mine {
             transition: opacity 0.2s ease-out 0s;
-
-            g {
-                fill: none;
-                stroke-width: 1.5;
-            }
         }
     }
+}
+
+#pngContainer {
+    display: none;
 }
 
 #login {

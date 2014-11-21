@@ -62,25 +62,20 @@ h1 {
 
 svg {
   height: 400px; }
-  svg #palette path {
-    fill: none; }
-    svg #chords #all {
-      transition: opacity 0.2s ease-out 0s; }
-      svg #chords #all g {
-        fill: none;
-        stroke-width: 0.3; }
+  svg #chords #all {
+    transition: opacity 0.2s ease-out 0s; }
     svg #chords #mine {
       transition: opacity 0.2s ease-out 0s; }
-      svg #chords #mine g {
-        fill: none;
-        stroke-width: 1.5; }
 
-#login {
-  background: #3b5998;
-  color: #fff;
-  transition: background 0.1s ease-out 0s; }
-  #login:hover {
-    background: #133783; }
+#pngContainer {
+  display: none; }
+
+  #login {
+    background: #3b5998;
+    color: #fff;
+    transition: background 0.1s ease-out 0s; }
+    #login:hover {
+      background: #133783; }
 
 p {
   text-align: center; }

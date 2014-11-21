@@ -10,6 +10,11 @@ define(['libs/domReady!', 'libs/d3'], function(doc, d3) {
         index: {
             allButton: d3.select("#allButton"),
             mineButton: d3.select("#mineButton"),
+            pngContainer: {
+                img: d3.select('#pngContainer img'),
+                canvas: d3.select('#pngContainer canvas'),
+            },
+            shareImg: d3.select("#shareImg"),
         },
         test: {
             tutorial: d3.selectAll(".tutorial"),

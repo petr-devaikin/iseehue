@@ -1,4 +1,4 @@
-define(['dom', 'color', 'settings', 'libs/d3'], function(dom, color, settings, d3) {
+define(['dom', 'color', 'settings', 'libs/d3', 'svg2png'], function(dom, color, settings, d3, svg2png) {
     function angleToCoords(r, angle) {
         return {
             x: r * Math.sin(angle),
@@ -104,5 +104,7 @@ define(['dom', 'color', 'settings', 'libs/d3'], function(dom, color, settings, d
         }
 
         setEventHandlers();
+
+        svg2png();
     }
 });

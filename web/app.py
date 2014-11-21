@@ -60,8 +60,8 @@ def index(another_user_id=None):
 
     another_user = get_another_user(another_user_id) if another_user_id else None
 
-    if my_user and another_user and my_user.id == another_user.id:
-        return redirect(url_for('index'))
+    if my_user and not another_user:
+        return redirect(url_for('index', another_user_id=my_user.id))
 
     tested = my_user and my_user.tested()
 

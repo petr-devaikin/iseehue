@@ -58,7 +58,7 @@
                         <div class="toggle" id="allButton">
                             <span>All people</span>
                         </div>
-                        {% if another_user %}
+                        {% if another_user and (not user or another_user.id != user.id) %}
                             <div class="toggle" id="anotherButton">
                                 <span>{{ another_user.name }}</span>
                             </div>
@@ -78,10 +78,9 @@
                                     Nobody perceives
                                 {% endif %}
                                 hues like you
-
                             </p>
                                     
-                            <div class="fb-share-button" data-href="{{ url_for('index', another_user_id=user.id, _external=True) }}" data-layout="button_count"></div>
+                            <div class="fb-share-button" data-href="{{ url_for('index', another_user_id=user.id, _external=True) }}" data-layout="icon_link"></div>
                         </div>
                     {% endif %}
                 </div>

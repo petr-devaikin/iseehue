@@ -4,7 +4,11 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chord.css') }}">
 
     <meta property="og:title" content="I See Hue" />
-    <meta property="og:description" content="Look how me and other people perceive hues." />
+    {% if another_user %}
+        <meta property="og:description" content="How {{ another_user.name }} perceives hues." />
+    {% else %}
+        <meta property="og:description" content="How people perceive hues." />
+    {% endif %}
     <meta property="og:image" content="{{ url_for('static', filename='img/21_11_2014.png', _external=True) }}" />
 {% endblock %}
 

@@ -3,13 +3,16 @@
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/chord.css') }}">
 
-    <meta property="og:title" content="I See Hue" />
     {% if another_user %}
+        <meta property="og:url" content="{{ url_for('index', another_user_id=another_user.id, _external=True) }}" />
+        <meta property="og:title" content="I See Hue — {{ another_user.name }}" />
         <meta property="og:description" content="How {{ another_user.name }} perceives hues." />
     {% else %}
+        <meta property="og:url" content="{{ url_for('index', _external=True) }}" />
+        <meta property="og:title" content="I See Hue —" />
         <meta property="og:description" content="How people perceive hues." />
     {% endif %}
-    <meta property="og:image" content="{{ url_for('static', filename='img/21_11_2014.png', _external=True) }}" />
+    <meta property="og:image" content="{{ url_for('static', filename='img/21_11_2014.jpg', _external=True) }}" />
 {% endblock %}
 
 {% block script %}

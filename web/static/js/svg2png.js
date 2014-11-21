@@ -23,7 +23,7 @@ define(['dom', 'settings'], function(dom, settings) {
          
             var canvasdata = canvas.toDataURL("image/png");
             dom.index.pngContainer.img.attr('src', canvasdata);
-            dom.index.shareImg.attr('content', canvasdata);
+            //dom.index.shareImg.attr('content', canvasdata);
             //var pngimg = '<img src="'+canvasdata+'">'; 
             //d3.select("#pngdataurl").html(pngimg);
         }

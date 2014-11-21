@@ -1,4 +1,19 @@
 define(['dom', 'settings'], function(dom, settings) {
+    function binaryblob(canvasdata){
+        var byteString = atob(canvasdata.replace(/^data:image\/(png|jpg);base64,/, ""));
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        var dataView = new DataView(ab);
+        var blob = new Blob([dataView], {type: "image/png"});
+        var DOMURL = self.URL || self.webkitURL || self;
+        var newurl = DOMURL.createObjectURL(blob);
+
+        dom.index.pngContainer.img.attr('src', newurl);
+    }
+
     return function() {
         var html = dom.svg.svg
             .attr('width', 2 * (settings.circleRadius + settings.circleWidth))
@@ -22,7 +37,8 @@ define(['dom', 'settings'], function(dom, settings) {
             context.drawImage(image, 0, 0);
          
             var canvasdata = canvas.toDataURL("image/png");
-            dom.index.pngContainer.img.attr('src', canvasdata);
+            binaryblob(canvasdata);
+            //dom.index.pngContainer.img.attr('src', canvasdata);
             //dom.index.shareImg.attr('content', canvasdata);
             //var pngimg = '<img src="'+canvasdata+'">'; 
             //d3.select("#pngdataurl").html(pngimg);

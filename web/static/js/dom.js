@@ -6,10 +6,13 @@ define(['libs/domReady!', 'libs/d3'], function(doc, d3) {
             chords: d3.select("#results g#chords"),
             allChords: d3.select("#results g#chords g#all"),
             myChords: d3.select("#results g#chords g#mine"),
+            anotherChords: d3.select("#results g#chords g#another"),
         },
         index: {
             allButton: d3.select("#allButton"),
             mineButton: d3.select("#mineButton"),
+            anotherButton: d3.select("#anotherButton"),
+            startTest: d3.select("#doTestNotification"),
             pngContainer: {
                 img: d3.select('#pngContainer img'),
                 canvas: d3.select('#pngContainer canvas'),

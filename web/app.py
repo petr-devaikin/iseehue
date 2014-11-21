@@ -51,16 +51,21 @@ def calcSimilarAnswers(my_user, max_diff):
 
 
 @app.route('/')
-def index():
+@app.route('/<int:another_user_id>')
+def index(another_user_id=None):
     try:
         my_user = get_user()
     except User.DoesNotExist:
         return redirect(url_for('logout'))
 
+    another_user = get_another_user(another_user_id) if another_user_id else None
+
+    if my_user and another_user and my_user.id == another_user.id:
+        return redirect(url_for('index'))
+
     tested = my_user and my_user.tested()
 
     answers = []
-    my_answers = []
     for user in User.select():
         if user.tested():
             answers.append({
@@ -68,10 +73,18 @@ def index():
                 'answers': [answer.to_hash() for answer in user.answers]
             })
 
+    my_answers = []
     if tested:
         my_answers.append({
             'user': my_user.id,
             'answers': [answer.to_hash() for answer in my_user.answers]
+        })
+
+    another_answers = []
+    if another_user:
+        another_answers.append({
+            'user': another_user.id,
+            'answers': [answer.to_hash() for answer in another_user.answers]
         })
 
     tested_count = Hue.select().first().user_answers.count() - 1
@@ -81,8 +94,15 @@ def index():
     overlaps = 100 * float(similar_count) / tested_count if tested_count else 0
     mutual = round(overlaps, 2) if overlaps < 1 else int(round(overlaps))
 
-    return render_template('index.html', user=my_user, tested=tested, mutual=mutual,
-        answers=json.dumps(answers), my_answers=json.dumps(my_answers), polled_count=tested_count+1)
+    return render_template('index.html',
+        user=my_user,
+        another_user=another_user,
+        tested=tested,
+        mutual=mutual,
+        answers=json.dumps(answers),
+        my_answers=json.dumps(my_answers),
+        another_answers=json.dumps(another_answers),
+        polled_count=tested_count+1)
 
 
 @app.route('/test')
@@ -183,6 +203,12 @@ def get_user():
     if user_id:
         return User.get(User.id == user_id)
     else:
+        return None
+
+def get_another_user(user_id):
+    try:
+        return User.get(User.id == user_id)
+    except User.DoesNotExist:
         return None
 
 

@@ -1,4 +1,5 @@
 $toggle-color: #999CA6;
+$transition: all 0.2s ease-out 0s;
 
 h1 {
     font-weight: normal;
@@ -16,25 +17,30 @@ h1 {
         position: absolute;
         right: 0px;
         top: 50%;
-        margin-top: -42px;
-        width: 130px;
+        max-width: 160px;
+        min-width: 130px;
+        transform: translateY(-50%);
+
+        #buttonsInnerContainer {
+            display: inline-block;
+        }
 
         .toggle {
             text-align: left;
-            padding: 0.5em 1em;
             margin: 0.5em 0 0;
-            transition: all 0.1s ease-out 0s;
+            padding: 0.5em 1em;
+            transition: $transition;
 
             &:not(.active) {
                 cursor: pointer;
-                background: none;
                 color: $toggle-color;
                 border-left: 3px solid #efefef;
+                background: none;
 
                 span {
                     border-bottom: 1px dashed $toggle-color;
                 }
-
+                    
                 &:hover {
                     background: #ECEBEB;
                     border-left: 3px solid $toggle-color;
@@ -43,8 +49,9 @@ h1 {
 
             &.active {
                 border-left: 3px solid #83806F;
-                background: #EAE8E5;
                 color: #83806F;
+                background: #EAE8E5;
+
                 span {
                     border-bottom: none;
                 }
@@ -52,6 +59,8 @@ h1 {
         }
 
         p {
+            position: absolute;
+            top: 100%;
             text-align: left;
             font-size: 12px;
             margin: 2px 0 0 19px;
@@ -59,28 +68,28 @@ h1 {
             font-style: italic;
         }
     }
+}
 
-    #doTestNotification {
-        text-align: left;
-        position: absolute;
-        right: 0px;
-        top: 50%;
-        width: 115px;
+
+#doTestNotification {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    font-size: 16px;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: $transition;
+
+    .button {
+        margin: 10px 0 0;
         font-size: 16px;
-        margin-top: -65px;
-        background: #EAE8E5;
-        padding: 0.5em 1em;
+        background: #51B54E;
+        color: white;
+        display: block;
 
-        .button {
-            margin: 10px 0 0;
-            font-size: 16px;
-            background: #51B54E;
-            color: white;
-            display: block;
-
-            &:hover {
-                background: #4E9B4C;
-            }
+        &:hover {
+            background: #4E9B4C;
         }
     }
 }
@@ -90,11 +99,11 @@ svg {
 
     #chords {
         #all {
-            transition: opacity 0.2s ease-out 0s;
+            transition: $transition;
         }
 
         #mine {
-            transition: opacity 0.2s ease-out 0s;
+            transition: $transition;
         }
     }
 }

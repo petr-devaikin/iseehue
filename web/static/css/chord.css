@@ -12,60 +12,65 @@ h1 {
       position: absolute;
       right: 0px;
       top: 50%;
-      margin-top: -42px;
-      width: 130px; }
-      #chordContainer #buttons .toggle {
-        text-align: left;
-        padding: 0.5em 1em;
-        margin: 0.5em 0 0;
-        transition: all 0.1s ease-out 0s; }
-        #chordContainer #buttons .toggle:not(.active) {
-          cursor: pointer;
-          background: none;
-          color: #999CA6;
-          border-left: 3px solid #efefef; }
-          #chordContainer #buttons .toggle:not(.active) span {
-            border-bottom: 1px dashed #999CA6; }
-            #chordContainer #buttons .toggle:not(.active):hover {
-              background: #ECEBEB;
-              border-left: 3px solid #999CA6; }
-        #chordContainer #buttons .toggle.active {
-          border-left: 3px solid #83806F;
-          background: #EAE8E5;
-          color: #83806F; }
-          #chordContainer #buttons .toggle.active span {
-            border-bottom: none; }
+      max-width: 160px;
+      min-width: 130px;
+      transform: translateY(-50%); }
+      #chordContainer #buttons #buttonsInnerContainer {
+        display: inline-block; }
+        #chordContainer #buttons .toggle {
+          text-align: left;
+          margin: 0.5em 0 0;
+          padding: 0.5em 1em;
+          transition: all 0.2s ease-out 0s; }
+          #chordContainer #buttons .toggle:not(.active) {
+            cursor: pointer;
+            color: #999CA6;
+            border-left: 3px solid #efefef;
+            background: none; }
+            #chordContainer #buttons .toggle:not(.active) span {
+              border-bottom: 1px dashed #999CA6; }
+              #chordContainer #buttons .toggle:not(.active):hover {
+                background: #ECEBEB;
+                border-left: 3px solid #999CA6; }
+          #chordContainer #buttons .toggle.active {
+            border-left: 3px solid #83806F;
+            color: #83806F;
+            background: #EAE8E5; }
+            #chordContainer #buttons .toggle.active span {
+              border-bottom: none; }
       #chordContainer #buttons p {
+        position: absolute;
+        top: 100%;
         text-align: left;
         font-size: 12px;
         margin: 2px 0 0 19px;
         color: #B8B8B8;
         font-style: italic; }
-    #chordContainer #doTestNotification {
-      text-align: left;
-      position: absolute;
-      right: 0px;
-      top: 50%;
-      width: 115px;
-      font-size: 16px;
-      margin-top: -65px;
-      background: #EAE8E5;
-      padding: 0.5em 1em; }
-      #chordContainer #doTestNotification .button {
-        margin: 10px 0 0;
-        font-size: 16px;
-        background: #51B54E;
-        color: white;
-        display: block; }
-        #chordContainer #doTestNotification .button:hover {
-          background: #4E9B4C; }
+
+#doTestNotification {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 150px;
+  font-size: 16px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 0.2s ease-out 0s; }
+  #doTestNotification .button {
+    margin: 10px 0 0;
+    font-size: 16px;
+    background: #51B54E;
+    color: white;
+    display: block; }
+    #doTestNotification .button:hover {
+      background: #4E9B4C; }
 
 svg {
   height: 400px; }
   svg #chords #all {
-    transition: opacity 0.2s ease-out 0s; }
+    transition: all 0.2s ease-out 0s; }
     svg #chords #mine {
-      transition: opacity 0.2s ease-out 0s; }
+      transition: all 0.2s ease-out 0s; }
 
 #pngContainer {
   display: none; }

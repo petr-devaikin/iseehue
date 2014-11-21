@@ -28,17 +28,21 @@ define(['dom', 'color', 'settings', 'libs/d3', 'svg2png'], function(dom, color, 
         }
     }
 
-    function drawUserAnswers(answers, isMine, usersCount) {
+    function drawUserAnswers(answers, owner, usersCount) {
         var radius = settings.circleRadius;
         var opacity, container;
 
-        if (!isMine) {
+        if (owner == 'all') {
             container = dom.svg.allChords;
             opacity = settings.chordMinOpacity +
                 (settings.chordMaxOpacity - settings.chordMinOpacity) / usersCount;
         }
-        else {
+        else if (owner == 'mine')  {
             container = dom.svg.myChords;
+            opacity = 1;
+        }
+        else {
+            container = dom.svg.anotherChords;
             opacity = 1;
         }
 
@@ -56,29 +60,51 @@ define(['dom', 'color', 'settings', 'libs/d3', 'svg2png'], function(dom, color, 
     }
 
     function showAllPeople() {
+        dom.index.allButton.classed('active', true);
+        dom.index.mineButton.classed('active', false);
+        dom.index.anotherButton.classed('active', false);
+
         dom.svg.allChords.style("opacity", 1);
         dom.svg.myChords.style("opacity", 0);
+        dom.svg.anotherChords.style("opacity", 0);
+        dom.index.startTest.style("opacity", 0);
     }
 
     function showMyResults() {
+        dom.index.allButton.classed('active', false);
+        dom.index.mineButton.classed('active', true);
+        dom.index.anotherButton.classed('active', false);
+
         dom.svg.allChords.style("opacity", settings.allChorsOpacity);
         dom.svg.myChords.style("opacity", settings.myChordOpacity);
+        dom.svg.anotherChords.style("opacity", 0);
+        dom.index.startTest.style("opacity", 1);
+    }
+
+    function showAnotherResults() {
+        dom.index.allButton.classed('active', false);
+        dom.index.mineButton.classed('active', false);
+        dom.index.anotherButton.classed('active', true);
+
+        dom.svg.allChords.style("opacity", settings.allChorsOpacity);
+        dom.svg.myChords.style("opacity", 0);
+        dom.svg.anotherChords.style("opacity", settings.myChordOpacity);
+        dom.index.startTest.style("opacity", 0);
     }
 
     function setEventHandlers() {
         dom.index.allButton.on('click', function() {
-            dom.index.allButton.classed('active', true);
-            dom.index.mineButton.classed('active', false);
             showAllPeople();
         });
         dom.index.mineButton.on('click', function() {
-            dom.index.mineButton.classed('active', true);
-            dom.index.allButton.classed('active', false);
             showMyResults();
+        });
+        dom.index.anotherButton.on('click', function() {
+            showAnotherResults();
         });
     }
 
-    return function(data, my_data) {
+    return function(data, my_data, another_data, loggedIn) {
         var cx = settings.circleRadius + settings.circleWidth,
             cy = settings.circleRadius + settings.circleWidth;
 
@@ -92,15 +118,21 @@ define(['dom', 'color', 'settings', 'libs/d3', 'svg2png'], function(dom, color, 
         drawCircle(settings.circleRadius);
 
         if (data.length > 0) {
-            drawUserAnswers(data, false, data.length);
+            drawUserAnswers(data, 'all', data.length);
 
-            if (my_data.length > 0) {
-                drawUserAnswers(my_data, true);
+            if (my_data.length > 0)
+                drawUserAnswers(my_data, 'mine');
+
+            if (another_data.length > 0)
+                drawUserAnswers(another_data, 'another');
+
+
+            if (another_data.length > 0)
+                showAnotherResults();
+            else if (loggedIn)
                 showMyResults();
-            }
-            else {
-                showAllPeople();
-            }
+            else
+                showAllPeople();            
         }
 
         setEventHandlers();

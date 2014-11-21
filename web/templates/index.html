@@ -5,13 +5,24 @@
 
     <meta property="og:title" content="I See Hue" />
     <meta property="og:description" content="Know how people perceive hues." />
+    {% if tested %}
+        <meta property="og:url" content="{{ url_for('index', another_user_id=user.id, _external=True) }}" />
+    {% else %}
+        <meta property="og:url" content="{{ url_for('index', _external=True) }}" />
+    {% endif %}
 {% endblock %}
 
 {% block script %}
     requirejs(['drawing/chord'], function(drawingChord) {
         var answers = {{ answers | safe }};
         var my_answers = {{ my_answers | safe }};
-        drawingChord(answers, my_answers);
+        var another_answers = {{ another_answers | safe }};
+        {% if user %}
+            var loggedIn = true;
+        {% else %}
+            var loggedIn = false;
+        {% endif %}
+        drawingChord(answers, my_answers, another_answers, loggedIn);
     });
 {% endblock %}
 
@@ -25,20 +36,37 @@
                     <g id="chords" fill="none">
                         <g id="all" stroke-width="0.3"></g>
                         <g id="mine" stroke-width="1.5"></g>
+                        <g id="another" stroke-width="1.5"></g>
                     </g>
                     <g id="palette" fill="none"></g>
                 </svg>
             </div>
 
-            {% if user %}
-                {% if tested %}
-                    <div id="buttons">
+            {% if user and not tested %}
+                <div id="doTestNotification">
+                    You have not passed the test yet.
+                    <a href="{{ url_for('test') }}" class="button" id="startButton">Start it</a>
+                </div>
+            {% endif %}
+
+            {% if another_user or user %}
+                <div id="buttons">
+                    <div id="buttonsInnerContainer">
                         <div class="toggle" id="allButton">
                             <span>All people</span>
                         </div>
-                        <div class="toggle active" id="mineButton">
-                            <span>Your results</span>
-                        </div>
+                        {% if another_user %}
+                            <div class="toggle" id="anotherButton">
+                                <span>{{ another_user.name }}</span>
+                            </div>
+                        {% endif %}
+                        {% if user %}
+                            <div class="toggle" id="mineButton">
+                                <span>Your results</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if tested %}
                         <p>
                             {% if mutual > 0 %}
                                 {{ mutual }}% of people perceive
@@ -47,13 +75,8 @@
                             {% endif %}
                             hues like you
                         </p>
-                    </div>
-                {% else %}
-                    <div id="doTestNotification">
-                        You have not passed the test yet.
-                        <a href="{{ url_for('test') }}" class="button" id="startButton">Start it</a>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             {% endif %}
         </div>
 

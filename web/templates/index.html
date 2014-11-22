@@ -58,7 +58,7 @@
                         <div class="toggle" id="allButton">
                             <span>All people</span>
                         </div>
-                        {% if another_user and (not user or another_user.id != user.id) %}
+                        {% if another_user %}
                             <div class="toggle" id="anotherButton">
                                 <span>{{ another_user.name }}</span>
                             </div>

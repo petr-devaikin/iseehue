@@ -63,6 +63,9 @@ def index(another_user_id=None):
     if my_user and not another_user:
         return redirect(url_for('index', another_user_id=my_user.id))
 
+    if my_user and another_user and my_user.id == another_user.id:
+        another_user = None
+
     tested = my_user and my_user.tested()
 
     answers = []

@@ -4,7 +4,7 @@ define({
     saturation: 70,
     lightness: 60,
     chordMaxOpacity: 1,
-    chordMinOpacity: 0.6,
+    chordMinOpacity: 0.5,
     myChordOpacity: 0.9,
     allChorsOpacity: 0.5,
     accuracy: 64,

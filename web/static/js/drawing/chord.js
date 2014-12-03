@@ -68,6 +68,7 @@ define(['dom', 'color', 'settings', 'libs/d3'], function(dom, color, settings, d
         dom.svg.myChords.style("opacity", 0);
         dom.svg.anotherChords.style("opacity", 0);
         dom.index.startTest.style("opacity", 0);
+        dom.index.startTest.style("display", 'none');
     }
 
     function showMyResults() {
@@ -78,6 +79,7 @@ define(['dom', 'color', 'settings', 'libs/d3'], function(dom, color, settings, d
         dom.svg.allChords.style("opacity", settings.allChorsOpacity);
         dom.svg.myChords.style("opacity", settings.myChordOpacity);
         dom.svg.anotherChords.style("opacity", 0);
+        dom.index.startTest.style("display", 'block');
         dom.index.startTest.style("opacity", 1);
     }
 
@@ -90,6 +92,7 @@ define(['dom', 'color', 'settings', 'libs/d3'], function(dom, color, settings, d
         dom.svg.myChords.style("opacity", 0);
         dom.svg.anotherChords.style("opacity", settings.myChordOpacity);
         dom.index.startTest.style("opacity", 0);
+        dom.index.startTest.style("display", 'none');
     }
 
     function setEventHandlers() {
